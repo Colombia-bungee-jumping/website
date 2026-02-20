@@ -1,112 +1,205 @@
-"use client"
+"use client";
 
-import { MapPin, Clock, Phone } from "lucide-react"
-import { Card, CardContent } from "@/components/ui/card"
-import { AnimateOnScroll } from "@/components/animate-on-scroll"
+import { MapPin, Clock, Phone, Navigation } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { AnimateOnScroll } from "@/components/animate-on-scroll";
 
-const locations = [
-  {
-    city: "Madrid",
-    country: "Espana",
-    address: "Puente de la Sierra, Carretera M-604 km 28",
-    hours: "Lun - Dom: 9:00 - 19:00",
-    phone: "+34 900 123 456",
-    mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d194347.38440752847!2d-3.8196196!3d40.4378698!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd422997800a3c81%3A0xc436dec1618c2269!2sMadrid%2C%20Spain!5e0!3m2!1sen!2sus!4v1707800000000",
-  },
-  {
-    city: "Ciudad de Mexico",
-    country: "Mexico",
-    address: "Barranca de Metztitlan, Hidalgo",
-    hours: "Mar - Dom: 8:00 - 18:00",
-    phone: "+52 55 1234 5678",
-    mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d240927.98195602948!2d-99.2236878!3d19.3909832!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1f92b1cfe45e7%3A0x70a08f36e42e2b08!2sMexico%20City%2C%20CDMX%2C%20Mexico!5e0!3m2!1sen!2sus!4v1707800000000",
-  },
-  {
-    city: "Bogota",
-    country: "Colombia",
-    address: "Puente de Bungee, Via a Suesca km 12",
-    hours: "Mie - Dom: 9:00 - 17:00",
-    phone: "+57 601 234 5678",
-    mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d254508.39280777866!2d-74.2478938!3d4.6482837!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f9bfd2da6cb29%3A0x239d635520a33914!2sBogot%C3%A1%2C%20Bogota%2C%20Colombia!5e0!3m2!1sen!2sus!4v1707800000000",
-  },
-]
+function IconInstagram({ className }: { className?: string }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+    >
+      <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+      <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+    </svg>
+  );
+}
+
+function IconFacebook({ className }: { className?: string }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+    >
+      <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+    </svg>
+  );
+}
+
+function IconYoutube({ className }: { className?: string }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+    >
+      <path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17" />
+      <path d="m10 15 5-3-5-3z" />
+    </svg>
+  );
+}
+
+function IconTiktok({ className }: { className?: string }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+    >
+      <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
+    </svg>
+  );
+}
+
+const socialLinks = [
+  { label: "Instagram", href: "#", icon: IconInstagram },
+  { label: "Facebook", href: "#", icon: IconFacebook },
+  { label: "YouTube", href: "#", icon: IconYoutube },
+  { label: "TikTok", href: "#", icon: IconTiktok },
+];
+
+const location = {
+  city: "San Gil",
+  googleMapsQuery: "Colombia Bungee Jumping, Vía San Gil - Charalá #Km 2, San Gil, Santander",
+  country: "Colombia",
+  address: "Vía San Gil - Charalá #Km 2, San Gil, Santander",
+  hours: "Lun - Dom: 9:00 - 18:00",
+  phone: "+57 312 345 6789",
+  mapUrl:
+    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3963.901953020077!2d-73.12847462465767!3d6.534065723039763!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e69c0d17865e0df%3A0x16c526d2fe1f63af!2sColombia%20Bungee%20Jumping!5e0!3m2!1ses-419!2sco!4v1771621145602!5m2!1ses-419!2sco",
+};
 
 export function Location() {
   return (
-    <section id="ubicacion" className="py-24 bg-background">
+    <section id="ubicacion" className="py-24 bg-secondary">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <AnimateOnScroll variant="fade-down" duration={600}>
             <p className="text-primary uppercase tracking-[0.3em] text-sm font-semibold mb-4">
-              Ubicaciones
+              Ubicacion
             </p>
           </AnimateOnScroll>
           <AnimateOnScroll variant="slide-up-rotate" duration={800} delay={100}>
             <h2 className="font-display text-5xl sm:text-7xl text-foreground tracking-wide">
-              DONDE SALTAR
+              DONDE NOS ENCONTRAMOS
             </h2>
           </AnimateOnScroll>
           <AnimateOnScroll variant="fade-up" delay={250}>
             <p className="mt-4 text-muted-foreground max-w-xl mx-auto leading-relaxed">
-              Contamos con sedes en las ubicaciones mas espectaculares. Encuentra la mas cercana y vive la experiencia.
+              Visitanos en nuestra ubicacion exclusiva en Colombia y vive la
+              experiencia del bungee jumping en un entorno unico.
             </p>
           </AnimateOnScroll>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-8 items-stretch">
           {/* Map */}
           <AnimateOnScroll variant="fade-right" duration={900}>
-            <div className="rounded-lg overflow-hidden border border-border h-[400px] lg:h-[520px]">
+            <div className="rounded-lg overflow-hidden border border-border h-[400px] lg:h-full min-h-[400px]">
               <iframe
-                src={locations[0].mapUrl}
+                src={location.mapUrl}
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title="Ubicacion de VertexDrop en Madrid"
+                title={`Ubicacion de VertexDrop en ${location.city}`}
                 className="grayscale brightness-75 contrast-125"
               />
             </div>
           </AnimateOnScroll>
 
-          {/* Location cards */}
-          <div className="flex flex-col gap-5">
-            {locations.map((loc, i) => (
-              <AnimateOnScroll key={loc.city} variant="fade-left" delay={i * 150} duration={700}>
-                <Card className="bg-card border-border hover:border-primary/30 transition-colors">
-                  <CardContent className="p-6">
-                    <div className="flex items-start justify-between mb-4">
-                      <div>
-                        <h3 className="font-display text-3xl text-foreground tracking-wide">{loc.city}</h3>
-                        <p className="text-primary text-sm font-semibold uppercase tracking-wider">{loc.country}</p>
-                      </div>
-                      <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
-                        <MapPin className="h-5 w-5 text-primary" />
-                      </div>
-                    </div>
-                    <div className="flex flex-col gap-2">
-                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <MapPin className="h-4 w-4 shrink-0 text-muted-foreground/60" />
-                        <span>{loc.address}</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <Clock className="h-4 w-4 shrink-0 text-muted-foreground/60" />
-                        <span>{loc.hours}</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <Phone className="h-4 w-4 shrink-0 text-muted-foreground/60" />
-                        <span>{loc.phone}</span>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </AnimateOnScroll>
-            ))}
-          </div>
+          {/* Location info */}
+          <AnimateOnScroll variant="fade-left" duration={700}>
+            <div className="bg-card border border-border rounded-lg p-10 flex flex-col justify-center h-full">
+              <div className="flex items-start justify-between mb-6">
+                <div>
+                  <h3 className="font-display text-4xl text-foreground tracking-wide">
+                    {location.city}
+                  </h3>
+                  <p className="text-primary text-sm font-semibold uppercase tracking-wider">
+                    {location.country}
+                  </p>
+                </div>
+                <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                  <MapPin className="h-6 w-6 text-primary" />
+                </div>
+              </div>
+
+              <div className="space-y-4 mb-8">
+                <div className="flex items-start gap-3 text-muted-foreground">
+                  <MapPin className="h-5 w-5 shrink-0 text-primary mt-0.5" />
+                  <span className="leading-relaxed">{location.address}</span>
+                </div>
+                <div className="flex items-start gap-3 text-muted-foreground">
+                  <Clock className="h-5 w-5 shrink-0 text-primary mt-0.5" />
+                  <span className="leading-relaxed">{location.hours}</span>
+                </div>
+                <div className="flex items-start gap-3 text-muted-foreground">
+                  <Phone className="h-5 w-5 shrink-0 text-primary mt-0.5" />
+                  <span className="leading-relaxed">{location.phone}</span>
+                </div>
+              </div>
+
+              <Button className="w-full gap-2" asChild>
+                <a
+                  href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
+                    location.googleMapsQuery,
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Navigation className="h-4 w-4" />
+                  Como llegar
+                </a>
+              </Button>
+
+              <div className="mt-8 pt-6 border-t border-border">
+                <p className="text-sm text-muted-foreground mb-4">
+                  Siguenos en redes
+                </p>
+                <div className="flex items-center gap-3">
+                  {socialLinks.map((social) => (
+                    <a
+                      key={social.label}
+                      href={social.href}
+                      aria-label={social.label}
+                      className="h-10 w-10 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/40 transition-colors"
+                    >
+                      <social.icon className="h-5 w-5" />
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </AnimateOnScroll>
         </div>
       </div>
     </section>
-  )
+  );
 }

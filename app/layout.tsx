@@ -7,8 +7,8 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 const bebasNeue = Bebas_Neue({ weight: '400', subsets: ['latin'], variable: '--font-bebas' })
 
 export const metadata: Metadata = {
-  title: 'VertexDrop | Bungee Jumping Extremo',
-  description: 'Vive la experiencia de adrenalina mas intensa con VertexDrop. Saltos de bungee jumping en las ubicaciones mas espectaculares. Reserva tu salto ahora.',
+  title: 'Colombia Bungee Jumping - Saltos de adrenalina en Colombia',
+  description: 'Vive la experiencia de adrenalina mas intensa con Colombia Bungee Jumping. Saltos de bungee jumping en Colombia. Reserva tu salto ahora.',
 }
 
 export const viewport: Viewport = {

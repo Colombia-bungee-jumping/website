@@ -11,10 +11,15 @@ export function DiagonalDivider({
   direction = "right",
   className = "",
 }: DiagonalDividerProps) {
-  const points =
+  const topTriangle =
     direction === "right"
-      ? "0,0 100,0 100,100"
-      : "0,0 100,0 0,100"
+      ? "0,0 100,0 0,100"
+      : "0,0 100,0 100,100"
+
+  const bottomTriangle =
+    direction === "right"
+      ? "100,0 100,100 0,100"
+      : "0,0 100,100 0,100"
 
   return (
     <div className={`relative h-20 sm:h-28 lg:h-36 -mt-px -mb-px ${className}`} aria-hidden="true">
@@ -23,8 +28,8 @@ export function DiagonalDivider({
         preserveAspectRatio="none"
         className="absolute inset-0 w-full h-full"
       >
-        <polygon points="0,0 100,0 100,100 0,100" fill={fromColor} />
-        <polygon points={points} fill={toColor} />
+        <polygon points={topTriangle} fill={fromColor} />
+        <polygon points={bottomTriangle} fill={toColor} />
       </svg>
     </div>
   )

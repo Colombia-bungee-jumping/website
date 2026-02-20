@@ -106,7 +106,7 @@ export function Testimonials() {
             {/* Left arrow */}
             <button
               onClick={() => scroll("left")}
-              className="hidden sm:flex absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 z-10 h-10 w-10 rounded-full bg-background/80 backdrop-blur items-center justify-center text-foreground hover:text-primary border border-border hover:border-primary/40 transition-colors"
+              className="hidden sm:flex absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 z-10 h-10 w-10 rounded-full bg-secondary/80 backdrop-blur items-center justify-center text-foreground hover:text-primary border border-border hover:border-primary/40 transition-colors"
               aria-label="Anterior testimonio"
             >
               <ChevronLeft className="h-5 w-5" />
@@ -151,7 +151,7 @@ export function Testimonials() {
             {/* Right arrow */}
             <button
               onClick={() => scroll("right")}
-              className="hidden sm:flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-10 h-10 w-10 rounded-full bg-background/80 backdrop-blur items-center justify-center text-foreground hover:text-primary border border-border hover:border-primary/40 transition-colors"
+              className="hidden sm:flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-10 h-10 w-10 rounded-full bg-secondary/80 backdrop-blur items-center justify-center text-foreground hover:text-primary border border-border hover:border-primary/40 transition-colors"
               aria-label="Siguiente testimonio"
             >
               <ChevronRight className="h-5 w-5" />

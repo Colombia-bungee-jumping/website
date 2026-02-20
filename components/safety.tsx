@@ -28,9 +28,9 @@ const safetyFeatures = [
 
 export function Safety() {
   return (
-    <section id="seguridad" className="py-24">
+    <section id="seguridad" className="py-24 bg-background">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-[1.3fr_1fr] gap-16 items-center">
           <div>
             <AnimateOnScroll variant="fade-down" duration={600}>
               <p className="text-primary uppercase tracking-[0.3em] text-sm font-semibold mb-4">

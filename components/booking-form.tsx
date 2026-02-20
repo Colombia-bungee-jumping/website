@@ -20,7 +20,7 @@ export function BookingForm() {
 
   if (submitted) {
     return (
-      <section id="reservar" className="py-24">
+      <section id="reservar" className="py-24 bg-background">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <AnimateOnScroll variant="zoom-in" duration={600}>
             <Card className="bg-card border-border">
@@ -49,7 +49,7 @@ export function BookingForm() {
   }
 
   return (
-    <section id="reservar" className="py-24">
+    <section id="reservar" className="py-24 bg-background">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
           <div>
@@ -106,7 +106,7 @@ export function BookingForm() {
                         id="nombre"
                         required
                         placeholder="Tu nombre"
-                        className="bg-secondary border-border text-foreground placeholder:text-muted-foreground"
+                        className="bg-background border-border text-foreground placeholder:text-muted-foreground"
                       />
                     </div>
                     <div className="flex flex-col gap-2">
@@ -118,7 +118,7 @@ export function BookingForm() {
                         type="email"
                         required
                         placeholder="tu@email.com"
-                        className="bg-secondary border-border text-foreground placeholder:text-muted-foreground"
+                        className="bg-background border-border text-foreground placeholder:text-muted-foreground"
                       />
                     </div>
                   </div>
@@ -133,7 +133,7 @@ export function BookingForm() {
                         type="tel"
                         required
                         placeholder="+34 600 000 000"
-                        className="bg-secondary border-border text-foreground placeholder:text-muted-foreground"
+                        className="bg-background border-border text-foreground placeholder:text-muted-foreground"
                       />
                     </div>
                     <div className="flex flex-col gap-2">
@@ -141,7 +141,7 @@ export function BookingForm() {
                         Personas
                       </Label>
                       <Select required>
-                        <SelectTrigger className="bg-secondary border-border text-foreground">
+                        <SelectTrigger className="bg-background border-border text-foreground">
                           <SelectValue placeholder="Seleccionar" />
                         </SelectTrigger>
                         <SelectContent className="bg-card border-border">
@@ -161,7 +161,7 @@ export function BookingForm() {
                       Experiencia
                     </Label>
                     <Select required>
-                      <SelectTrigger className="bg-secondary border-border text-foreground">
+                      <SelectTrigger className="bg-background border-border text-foreground">
                         <SelectValue placeholder="Elige tu experiencia" />
                       </SelectTrigger>
                       <SelectContent className="bg-card border-border">
@@ -180,7 +180,7 @@ export function BookingForm() {
                       id="fecha"
                       type="date"
                       required
-                      className="bg-secondary border-border text-foreground"
+                      className="bg-background border-border text-foreground"
                     />
                   </div>
 
@@ -192,7 +192,7 @@ export function BookingForm() {
                       id="comentarios"
                       placeholder="Cuentanos si es una ocasion especial, si tienes alguna pregunta..."
                       rows={4}
-                      className="bg-secondary border-border text-foreground placeholder:text-muted-foreground resize-none"
+                      className="bg-background border-border text-foreground placeholder:text-muted-foreground resize-none"
                     />
                   </div>
 

@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { Menu, X, ChevronDown, ChevronRight } from "lucide-react"
+import { useState, useEffect } from "react";
+import { Menu, X, ChevronDown, ChevronRight } from "lucide-react";
 
 const navLinks = [
   { label: "Inicio", href: "#inicio" },
@@ -11,31 +11,31 @@ const navLinks = [
   { label: "Testimonios", href: "#testimonios" },
   { label: "Ubicacion", href: "#ubicacion" },
   { label: "Reservar", href: "#reservar" },
-]
+];
 
 export function Navbar() {
-  const [menuOpen, setMenuOpen] = useState(false)
-  const [ctaVisible, setCtaVisible] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [ctaVisible, setCtaVisible] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      const heroEl = document.getElementById("inicio")
-      const bookingEl = document.getElementById("reservar")
-      if (!heroEl || !bookingEl) return
+      const heroEl = document.getElementById("inicio");
+      const bookingEl = document.getElementById("reservar");
+      if (!heroEl || !bookingEl) return;
 
-      const heroBottom = heroEl.getBoundingClientRect().bottom
-      const bookingTop = bookingEl.getBoundingClientRect().top
+      const heroBottom = heroEl.getBoundingClientRect().bottom;
+      const bookingTop = bookingEl.getBoundingClientRect().top;
 
-      const pastHero = heroBottom < 0
-      const reachedBooking = bookingTop <= window.innerHeight
+      const pastHero = heroBottom < 0;
+      const reachedBooking = bookingTop <= window.innerHeight;
 
-      setCtaVisible(pastHero && !reachedBooking)
-    }
+      setCtaVisible(pastHero && !reachedBooking);
+    };
 
-    window.addEventListener("scroll", handleScroll, { passive: true })
-    handleScroll()
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <>
@@ -49,13 +49,16 @@ export function Navbar() {
               className="flex items-center gap-2 text-foreground hover:text-primary transition-colors shrink-0"
               aria-label={menuOpen ? "Cerrar menu" : "Abrir menu"}
             >
-              {menuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              {menuOpen ? (
+                <X className="h-6 w-6" />
+              ) : (
+                <Menu className="h-6 w-6" />
+              )}
             </button>
 
             <a href="#inicio" className="flex items-center gap-1 shrink-0">
-              <ChevronDown className="h-6 w-6 text-primary rotate-180" strokeWidth={3} />
               <span className="font-display text-xl tracking-wider text-foreground">
-                VERTEXDROP
+                Colombia Bungee Jumping
               </span>
             </a>
 
@@ -103,5 +106,5 @@ export function Navbar() {
         </nav>
       </div>
     </>
-  )
+  );
 }

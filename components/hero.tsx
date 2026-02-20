@@ -1,18 +1,37 @@
 "use client"
 
+import { useEffect, useRef, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { ArrowDown } from "lucide-react"
 import { StatCounter } from "@/components/stat-counter"
 import { AnimateOnScroll } from "@/components/animate-on-scroll"
 
 export function Hero() {
+  const [scrollY, setScrollY] = useState(0)
+  const sectionRef = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (sectionRef.current) {
+        const rect = sectionRef.current.getBoundingClientRect()
+        if (rect.bottom > 0 && rect.top < window.innerHeight) {
+          setScrollY(window.scrollY)
+        }
+      }
+    }
+
+    window.addEventListener("scroll", handleScroll, { passive: true })
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
+
   return (
-    <section id="inicio" className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section ref={sectionRef} id="inicio" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0">
         <img
           src="/images/hero-bungee.jpg"
           alt="Persona saltando en bungee jumping sobre un canon al atardecer"
           className="w-full h-full object-cover"
+          style={{ transform: `translateY(${scrollY * 0.4}px) scale(1.1)` }}
         />
         <div className="absolute inset-0 bg-background/70" />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />

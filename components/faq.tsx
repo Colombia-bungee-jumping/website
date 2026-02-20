@@ -49,9 +49,8 @@ const faqs = [
 ];
 
 export function FAQ() {
-  const whatsappUrl = process.env.NEXT_PUBLIC_WHATSAPP_URL;
+  const whatsappUrl = process.env.NEXT_PUBLIC_WHATSAPP_URL ?? "#";
 
-  if (!whatsappUrl) return null;
   return (
     <section id="faq" className="py-24 bg-background">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

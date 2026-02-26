@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Menu, X, ChevronDown, ChevronRight } from "lucide-react";
+import { Menu, X } from "lucide-react";
+import { company } from "@/config/company";
 
 const navLinks = [
   { label: "Inicio", href: "#inicio" },
@@ -29,7 +30,7 @@ export function Navbar() {
       const pastHero = heroBottom < 0;
       const reachedBooking = bookingTop <= window.innerHeight;
 
-      setCtaVisible(pastHero && !reachedBooking);
+      setCtaVisible(!reachedBooking);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -42,7 +43,7 @@ export function Navbar() {
       {/* Top bar */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex h-16 items-center gap-4">
+          <div className="relative flex h-16 items-center gap-4">
             {/* Menu button + Logo - left */}
             <button
               onClick={() => setMenuOpen(!menuOpen)}
@@ -58,13 +59,13 @@ export function Navbar() {
 
             <a href="#inicio" className="flex items-center gap-1 shrink-0">
               <span className="font-display text-xl tracking-wider text-foreground">
-                Colombia Bungee Jumping
+                {company.name}
               </span>
             </a>
 
             {/* CTA - fills all remaining space, appears/disappears based on scroll */}
             <div
-              className={`flex-1 flex items-center justify-center transition-all duration-500 ${
+              className={`hidden lg:flex absolute left-1/2 -translate-x-1/2 items-center transition-all duration-500 ${
                 ctaVisible
                   ? "opacity-100 translate-y-0"
                   : "opacity-0 -translate-y-2 pointer-events-none"
@@ -72,12 +73,11 @@ export function Navbar() {
             >
               <a
                 href="#reservar"
-                className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors group"
+                className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors group min-w-max"
               >
-                <span className="font-display text-lg sm:text-2xl lg:text-3xl uppercase tracking-widest animate-pulse">
+                <span className="font-display text-lg sm:text-2xl lg:text-3xl uppercase tracking-widest">
                   Reserva tu salto ahora
                 </span>
-                <ChevronRight className="h-5 w-5 sm:h-6 sm:w-6 group-hover:translate-x-1 transition-transform" />
               </a>
             </div>
           </div>

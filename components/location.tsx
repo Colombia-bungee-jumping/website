@@ -3,92 +3,16 @@
 import { MapPin, Clock, Phone, Navigation } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AnimateOnScroll } from "@/components/animate-on-scroll";
-
-function IconInstagram({ className }: { className?: string }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={className}
-    >
-      <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
-      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-      <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
-    </svg>
-  );
-}
-
-function IconFacebook({ className }: { className?: string }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={className}
-    >
-      <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-    </svg>
-  );
-}
-
-function IconYoutube({ className }: { className?: string }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={className}
-    >
-      <path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17" />
-      <path d="m10 15 5-3-5-3z" />
-    </svg>
-  );
-}
-
-function IconTiktok({ className }: { className?: string }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={className}
-    >
-      <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
-    </svg>
-  );
-}
-
-const socialLinks = [
-  { label: "Instagram", href: "#", icon: IconInstagram },
-  { label: "Facebook", href: "#", icon: IconFacebook },
-  { label: "YouTube", href: "#", icon: IconYoutube },
-  { label: "TikTok", href: "#", icon: IconTiktok },
-];
+import { socialLinks } from "@/config/social-links";
+import { company } from "@/config/company";
 
 const location = {
-  city: "San Gil",
-  googleMapsQuery: "Colombia Bungee Jumping, Vía San Gil - Charalá #Km 2, San Gil, Santander",
-  country: "Colombia",
-  address: "Vía San Gil - Charalá #Km 2, San Gil, Santander",
+  city: company.city,
+  googleMapsQuery: `${company.name}, ${company.location}`,
+  country: company.country,
+  address: company.location,
   hours: "Lun - Dom: 9:00 - 18:00",
-  phone: "+57 312 345 6789",
+  phone: company.phone,
   mapUrl:
     "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3963.901953020077!2d-73.12847462465767!3d6.534065723039763!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e69c0d17865e0df%3A0x16c526d2fe1f63af!2sColombia%20Bungee%20Jumping!5e0!3m2!1ses-419!2sco!4v1771621145602!5m2!1ses-419!2sco",
 };
@@ -190,6 +114,8 @@ export function Location() {
                       href={social.href}
                       aria-label={social.label}
                       className="h-10 w-10 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/40 transition-colors"
+                      target="_blank"
+                      rel="noopener noreferrer"
                     >
                       <social.icon className="h-5 w-5" />
                     </a>

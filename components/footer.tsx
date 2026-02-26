@@ -1,82 +1,6 @@
 import { ChevronDown } from "lucide-react";
-
-function IconInstagram({ className }: { className?: string }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={className}
-    >
-      <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
-      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-      <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
-    </svg>
-  );
-}
-
-function IconFacebook({ className }: { className?: string }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={className}
-    >
-      <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-    </svg>
-  );
-}
-
-function IconYoutube({ className }: { className?: string }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={className}
-    >
-      <path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17" />
-      <path d="m10 15 5-3-5-3z" />
-    </svg>
-  );
-}
-
-function IconTiktok({ className }: { className?: string }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={className}
-    >
-      <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
-    </svg>
-  );
-}
-
-const socialLinks = [
-  { label: "Instagram", href: "#", icon: IconInstagram },
-  { label: "Facebook", href: "#", icon: IconFacebook },
-  { label: "YouTube", href: "#", icon: IconYoutube },
-  { label: "TikTok", href: "#", icon: IconTiktok },
-];
+import { socialLinks } from "@/config/social-links";
+import { company } from "@/config/company";
 
 export function Footer() {
   return (
@@ -86,7 +10,7 @@ export function Footer() {
           <div className="md:col-span-1">
             <a href="#inicio" className="flex items-center gap-1 mb-4">
               <span className="font-display text-xl tracking-wider text-foreground">
-                Colombia Bungee Jumping
+                {company.name}
               </span>
             </a>
             <p className="text-sm text-muted-foreground leading-relaxed">
@@ -181,10 +105,10 @@ export function Footer() {
             </h4>
             <ul className="flex flex-col gap-2 mb-4">
               <li className="text-sm text-muted-foreground">
-                info@vertexdrop.com
+                {company.email}
               </li>
-              <li className="text-sm text-muted-foreground">+34 900 123 456</li>
-              <li className="text-sm text-muted-foreground">Madrid, Espana</li>
+              <li className="text-sm text-muted-foreground">{company.phone}</li>
+              <li className="text-sm text-muted-foreground">{company.location}</li>
             </ul>
             <div className="flex items-center gap-3">
               {socialLinks.map((social) => (
@@ -203,7 +127,7 @@ export function Footer() {
 
         <div className="mt-12 pt-8 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-muted-foreground">
-            {`© ${new Date().getFullYear()} Colombia Bungee Jumping. Todos los derechos reservados.`}
+            {`© ${new Date().getFullYear()} ${company.name}. Todos los derechos reservados.`}
           </p>
           <div className="flex items-center gap-6">
             <a

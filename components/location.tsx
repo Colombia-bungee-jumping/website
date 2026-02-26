@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { AnimateOnScroll } from "@/components/animate-on-scroll";
 import { socialLinks } from "@/config/social-links";
 import { company } from "@/config/company";
+import { formatPhoneNumber } from "@/lib/utils";
 
 const location = {
   city: company.city,
@@ -86,7 +87,9 @@ export function Location() {
                 </div>
                 <div className="flex items-start gap-3 text-muted-foreground">
                   <Phone className="h-5 w-5 shrink-0 text-primary mt-0.5" />
-                  <span className="leading-relaxed">{location.phone}</span>
+                  <span className="leading-relaxed">
+                    {formatPhoneNumber(company.phone)}
+                  </span>
                 </div>
               </div>
 

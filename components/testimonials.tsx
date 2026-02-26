@@ -96,7 +96,7 @@ export function Testimonials() {
           </AnimateOnScroll>
           <AnimateOnScroll variant="fade-up" delay={250}>
             <p className="mt-4 text-muted-foreground max-w-xl mx-auto leading-relaxed">
-              Miles de aventureros ya vivieron la experiencia VertexDrop. Estas son sus historias.
+              Miles de aventureros ya vivieron la experiencia. Estas son sus historias.
             </p>
           </AnimateOnScroll>
         </div>

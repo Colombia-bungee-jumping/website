@@ -1,6 +1,7 @@
 import { ChevronDown } from "lucide-react";
 import { socialLinks } from "@/config/social-links";
 import { company } from "@/config/company";
+import { formatPhoneNumber } from "@/lib/utils";
 
 export function Footer() {
   return (
@@ -104,11 +105,13 @@ export function Footer() {
               Contacto
             </h4>
             <ul className="flex flex-col gap-2 mb-4">
+              <li className="text-sm text-muted-foreground">{company.email}</li>
               <li className="text-sm text-muted-foreground">
-                {company.email}
+                {formatPhoneNumber(company.phone)}
               </li>
-              <li className="text-sm text-muted-foreground">{company.phone}</li>
-              <li className="text-sm text-muted-foreground">{company.location}</li>
+              <li className="text-sm text-muted-foreground">
+                {company.location}, {company.country}
+              </li>
             </ul>
             <div className="flex items-center gap-3">
               {socialLinks.map((social) => (
@@ -141,12 +144,6 @@ export function Footer() {
               className="text-xs text-muted-foreground hover:text-foreground transition-colors"
             >
               Terminos y condiciones
-            </a>
-            <a
-              href="#"
-              className="text-xs text-muted-foreground hover:text-foreground transition-colors"
-            >
-              Cookies
             </a>
           </div>
         </div>

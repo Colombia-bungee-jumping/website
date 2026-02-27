@@ -58,9 +58,11 @@ export function Navbar() {
             </button>
 
             <a href="#inicio" className="flex items-center gap-1 shrink-0">
-              <span className="font-display text-xl tracking-wider text-foreground">
-                {company.name}
-              </span>
+              <img
+                src="/logo.svg"
+                alt={`${company.name} logo`}
+                className="h-12 w-auto"
+              />
             </a>
 
             {/* CTA - fills all remaining space, appears/disappears based on scroll */}

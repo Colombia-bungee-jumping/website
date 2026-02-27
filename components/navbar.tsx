@@ -176,7 +176,7 @@ export function Navbar() {
               key={link.href}
               href={link.href}
               onClick={() => setMenuOpen(false)}
-              className="font-display text-5xl sm:text-6xl lg:text-5xl uppercase tracking-wider text-muted-foreground hover:text-primary transition-colors py-2"
+              className="font-display text-5xl sm:text-6xl lg:text-3xl uppercase tracking-wider text-muted-foreground hover:text-primary transition-colors py-2"
             >
               {link.label}
             </a>

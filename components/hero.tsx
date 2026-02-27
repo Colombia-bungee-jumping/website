@@ -44,7 +44,7 @@ export function Hero() {
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center pt-10">
         <AnimateOnScroll variant="fade-down" duration={600}>
           <p className="text-primary uppercase tracking-[0.2em] text-sm font-semibold mb-10">
-          San Gil - Santander - Since 2007
+            San Gil - Santander - Since 2007
           </p>
         </AnimateOnScroll>
 
@@ -52,18 +52,6 @@ export function Hero() {
           <h1 className="font-display text-6xl sm:text-8xl lg:text-9xl text-foreground leading-none tracking-wide text-balance font-black">
             70 metros de pura adrenalina
           </h1>
-        </AnimateOnScroll>
-
-        <AnimateOnScroll variant="fade-up" delay={700} duration={700}>
-          <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button
-              asChild
-              size="lg"
-              className="bg-primary text-primary-foreground hover:bg-primary/90 text-lg px-10 py-6 font-semibold uppercase tracking-wider"
-            >
-              <a href="#reservar">Reserva Tu Salto</a>
-            </Button>
-          </div>
         </AnimateOnScroll>
 
         <AnimateOnScroll variant="fade-up" delay={900} duration={800}>

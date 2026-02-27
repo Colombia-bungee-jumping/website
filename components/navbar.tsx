@@ -11,7 +11,6 @@ const navLinks = [
   { label: "Seguridad", href: "#seguridad" },
   { label: "Testimonios", href: "#testimonios" },
   { label: "Ubicacion", href: "#ubicacion" },
-  { label: "Reservar", href: "#reservar" },
 ];
 
 const languages = [
@@ -144,25 +143,61 @@ export function Navbar() {
 
       {/* Fullscreen overlay menu */}
       <div
-        className={`fixed inset-0 z-40 bg-background/95 backdrop-blur-lg transition-all duration-300 ${
-          menuOpen
-            ? "opacity-100 pointer-events-auto"
-            : "opacity-0 pointer-events-none"
+        className={`fixed inset-0 z-[60] bg-background/95 backdrop-blur-lg transition-transform duration-500 ease-out ${
+          menuOpen ? "translate-x-0" : "-translate-x-full"
         }`}
+        style={{
+          width: "100%",
+          maxWidth: "500px",
+          clipPath: "polygon(0% 0%, 100% 0%, 85% 100%, 0% 100%)",
+        }}
       >
-        <nav className="flex flex-col items-center justify-center h-full gap-2">
+        {/* Header with logo and X */}
+        <div className="flex items-center justify-between p-8 lg:px-16">
+          <a href="#inicio" onClick={() => setMenuOpen(false)} className="flex items-center gap-1 shrink-0">
+            <img
+              src="/logo.svg"
+              alt={`${company.name} logo`}
+              className="h-12 w-auto"
+            />
+          </a>
+          <button
+            onClick={() => setMenuOpen(false)}
+            className="p-2 text-foreground hover:text-primary transition-colors"
+            aria-label="Cerrar menu"
+          >
+            <X className="h-8 w-8" />
+          </button>
+        </div>
+
+        <nav className="relative flex flex-col items-center justify-start h-full gap-2 lg:items-start lg:pl-16 lg:gap-4 lg:pr-32 pt-8">
           {navLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
               onClick={() => setMenuOpen(false)}
-              className="font-display text-5xl sm:text-6xl lg:text-7xl uppercase tracking-wider text-muted-foreground hover:text-primary transition-colors py-2"
+              className="font-display text-5xl sm:text-6xl lg:text-5xl uppercase tracking-wider text-muted-foreground hover:text-primary transition-colors py-2"
             >
               {link.label}
             </a>
           ))}
+          <a
+            href="#reservar"
+            onClick={() => setMenuOpen(false)}
+            className="mt-8 px-8 py-3 bg-primary text-primary-foreground font-display text-2xl uppercase tracking-widest hover:bg-primary/90 transition-colors rounded-full w-full text-center"
+          >
+            Reservar ahora
+          </a>
         </nav>
       </div>
+
+      {/* Overlay backdrop */}
+      <div
+        className={`fixed inset-0 z-[55] bg-black/50 transition-opacity duration-500 ${
+          menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        }`}
+        onClick={() => setMenuOpen(false)}
+      />
     </>
   );
 }

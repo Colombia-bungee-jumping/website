@@ -47,7 +47,7 @@ export function Navbar() {
     <>
       {/* Top CTA banner - visible above hero */}
       <div
-        className={`fixed top-0 left-0 right-0 z-50 bg-primary text-primary-foreground transition-transform duration-500 ${
+        className={`fixed top-0 left-0 right-0 z-[60] bg-primary text-primary-foreground transition-transform duration-500 ${
           showTopBanner ? "translate-y-0" : "-translate-y-full"
         }`}
       >
@@ -143,12 +143,11 @@ export function Navbar() {
 
       {/* Fullscreen overlay menu */}
       <div
-        className={`fixed inset-0 z-[60] bg-background/95 backdrop-blur-lg transition-transform duration-500 ease-out ${
+        className={`md:max-w-[500px] fixed inset-0 z-[65] bg-background/95 backdrop-blur-lg transition-transform duration-500 ease-out ${
           menuOpen ? "translate-x-0" : "-translate-x-full"
         }`}
         style={{
           width: "100%",
-          maxWidth: "500px",
           clipPath: "polygon(0% 0%, 100% 0%, 85% 100%, 0% 100%)",
         }}
       >
@@ -158,7 +157,7 @@ export function Navbar() {
             <img
               src="/logo.svg"
               alt={`${company.name} logo`}
-              className="h-12 w-auto"
+              className="h-16 lg:h-14 xl:h-16 w-auto"
             />
           </a>
           <button
@@ -170,13 +169,13 @@ export function Navbar() {
           </button>
         </div>
 
-        <nav className="relative flex flex-col items-center justify-start h-full gap-2 lg:items-start lg:pl-16 lg:gap-4 lg:pr-32 pt-8">
+        <nav className="relative flex flex-col items-center justify-start h-full gap-4 lg:items-start lg:gap-2 lg:pl-16 xl:gap-4 lg:pr-32 pt-4 lg:pt-0 xl:pt-8">
           {navLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
               onClick={() => setMenuOpen(false)}
-              className="font-display text-5xl sm:text-6xl lg:text-3xl uppercase tracking-wider text-muted-foreground hover:text-primary transition-colors py-2"
+              className="font-display text-4xl uppercase tracking-wider text-muted-foreground hover:text-primary transition-colors py-2"
             >
               {link.label}
             </a>
@@ -184,7 +183,7 @@ export function Navbar() {
           <a
             href="#reservar"
             onClick={() => setMenuOpen(false)}
-            className="mt-8 px-8 py-3 bg-primary text-primary-foreground font-display text-2xl uppercase tracking-widest hover:bg-primary/90 transition-colors rounded-full w-full text-center"
+            className="mt-4 xl:mt-8 px-8 py-3 bg-primary text-primary-foreground font-display text-3xl uppercase tracking-widest hover:bg-primary/90 transition-colors rounded-full max-w-fit lg:max-w-full w-full text-center"
           >
             Reservar ahora
           </a>

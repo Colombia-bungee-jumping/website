@@ -49,13 +49,13 @@ export function Hero() {
         </AnimateOnScroll>
 
         <AnimateOnScroll variant="zoom-in" duration={900} delay={200}>
-          <h1 className="font-display text-6xl sm:text-8xl lg:text-9xl text-foreground leading-none tracking-wide text-balance font-black">
+          <h1 className="font-display text-6xl sm:text-8xl xl:text-9xl text-foreground leading-none tracking-wide text-balance font-black">
             70 metros de pura adrenalina
           </h1>
         </AnimateOnScroll>
 
         <AnimateOnScroll variant="fade-up" delay={900} duration={800}>
-          <div className="mt-20 grid grid-cols-2 sm:grid-cols-4 gap-6 max-w-3xl mx-auto">
+          <div className="mt-20 lg:mt-10 xl:mt-20 grid grid-cols-2 gap-y-10 lg:grid-cols-4 gap-6 max-w-3xl mx-auto">
             <StatCounter
               prefix="+"
               end={65}

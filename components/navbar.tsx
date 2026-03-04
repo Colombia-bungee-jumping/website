@@ -21,6 +21,7 @@ const languages = [
 
 export function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [animateMenu, setAnimateMenu] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [currentLang, setCurrentLang] = useState("es");
   const [langMenuOpen, setLangMenuOpen] = useState(false);
@@ -31,7 +32,8 @@ export function Navbar() {
       if (!heroEl) return;
 
       const heroBottom = heroEl.getBoundingClientRect().bottom;
-      const scrolled = heroBottom < 0 ? 1 : Math.min(1 - (heroBottom / window.innerHeight), 1);
+      const scrolled =
+        heroBottom < 0 ? 1 : Math.min(1 - heroBottom / window.innerHeight, 1);
       setScrollProgress(scrolled);
     };
 
@@ -42,6 +44,12 @@ export function Navbar() {
 
   const showBottomBanner = scrollProgress > 0.1;
   const showTopBanner = !showBottomBanner;
+
+  useEffect(() => {
+    if (!menuOpen) {
+      setAnimateMenu(false);
+    }
+  }, [menuOpen]);
 
   return (
     <>
@@ -64,14 +72,23 @@ export function Navbar() {
       </div>
 
       {/* Top bar */}
-      <header className={`fixed top-0 left-0 right-0 z-50 border-b transition-all duration-500 ${
-        showTopBanner ? "pt-16 border-transparent bg-transparent" : "border-border bg-background/80 backdrop-blur-md"
-      }`}>
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 border-b transition-all duration-500 ${
+          showTopBanner
+            ? "pt-16 border-transparent bg-transparent"
+            : "border-border bg-background/80 backdrop-blur-md"
+        }`}
+      >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="relative flex h-16 items-center gap-4">
             {/* Menu button + Logo - left */}
             <button
-              onClick={() => setMenuOpen(!menuOpen)}
+              onClick={() => {
+                setMenuOpen(!menuOpen);
+                if (!menuOpen) {
+                  setAnimateMenu(true);
+                }
+              }}
               className="flex items-center gap-2 text-foreground hover:text-primary transition-colors shrink-0"
               aria-label={menuOpen ? "Cerrar menu" : "Abrir menu"}
             >
@@ -98,7 +115,9 @@ export function Navbar() {
                 aria-label="Seleccionar idioma"
               >
                 <Globe className="h-5 w-5" />
-                <span className="font-display text-sm uppercase tracking-wider">{currentLang}</span>
+                <span className="font-display text-sm uppercase tracking-wider">
+                  {currentLang}
+                </span>
               </button>
               {langMenuOpen && (
                 <div className="absolute right-0 mt-2 w-20 bg-background border border-border rounded-md shadow-lg overflow-hidden">
@@ -110,7 +129,9 @@ export function Navbar() {
                         setLangMenuOpen(false);
                       }}
                       className={`block w-full px-4 py-2 text-left text-sm hover:bg-accent transition-colors ${
-                        currentLang === lang.code ? "bg-accent text-primary" : "text-foreground"
+                        currentLang === lang.code
+                          ? "bg-accent text-primary"
+                          : "text-foreground"
                       }`}
                     >
                       {lang.label}
@@ -148,12 +169,19 @@ export function Navbar() {
         }`}
         style={{
           width: "100%",
-          clipPath: "polygon(0% 0%, 100% 0%, 85% 100%, 0% 100%)",
+          clipPath: menuOpen
+            ? "polygon(0% 0%, 100% 0%, 85% 100%, 0% 100%)"
+            : "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
         }}
+        onTransitionEnd={() => {}}
       >
         {/* Header with logo and X */}
         <div className="flex items-center justify-between p-8 lg:px-16">
-          <a href="#inicio" onClick={() => setMenuOpen(false)} className="flex items-center gap-1 shrink-0">
+          <a
+            href="#inicio"
+            onClick={() => setMenuOpen(false)}
+            className="flex items-center gap-1 shrink-0"
+          >
             <img
               src="/logo.svg"
               alt={`${company.name} logo`}
@@ -161,7 +189,9 @@ export function Navbar() {
             />
           </a>
           <button
-            onClick={() => setMenuOpen(false)}
+            onClick={() => {
+              setMenuOpen(false);
+            }}
             className="p-2 text-foreground hover:text-primary transition-colors"
             aria-label="Cerrar menu"
           >
@@ -170,20 +200,40 @@ export function Navbar() {
         </div>
 
         <nav className="relative flex flex-col items-center justify-start h-full gap-4 lg:items-start lg:gap-2 lg:pl-16 xl:gap-4 lg:pr-32 pt-4 lg:pt-0 xl:pt-8">
-          {navLinks.map((link) => (
+          {navLinks.map((link, index) => (
             <a
               key={link.href}
               href={link.href}
-              onClick={() => setMenuOpen(false)}
-              className="font-display text-4xl uppercase tracking-wider text-muted-foreground hover:text-primary transition-colors py-2"
+              className={`font-display text-4xl uppercase tracking-wider text-muted-foreground hover:text-primary transition-colors duration-150 ${
+                animateMenu ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-8"
+              }`}
+              style={animateMenu ? {
+                transitionProperty: "opacity, transform",
+                transitionDuration: "400ms",
+                transitionDelay: `${150 + index * 120}ms`,
+              } : undefined}
+              onClick={() => {
+                setMenuOpen(false);
+              }}
             >
               {link.label}
             </a>
           ))}
           <a
             href="#reservar"
-            onClick={() => setMenuOpen(false)}
-            className="mt-4 xl:mt-8 px-8 py-3 bg-primary text-primary-foreground font-display text-3xl uppercase tracking-widest hover:bg-primary/90 transition-colors rounded-full max-w-fit lg:max-w-full w-full text-center"
+            onClick={() => {
+              setMenuOpen(false);
+            }}
+            className={`mt-4 xl:mt-8 px-8 py-3 bg-primary text-primary-foreground font-display text-2xl uppercase tracking-widest hover:bg-primary/90 transition-colors duration-150 rounded-full max-w-fit lg:max-w-full w-full text-center ${
+              animateMenu
+                ? "opacity-100 translate-x-0"
+                : "opacity-0 -translate-x-8"
+            }`}
+            style={animateMenu ? {
+              transitionProperty: "opacity, transform",
+              transitionDuration: "400ms",
+              transitionDelay: `${150 + navLinks.length * 120 + 150}ms`,
+            } : undefined}
           >
             Reservar ahora
           </a>
@@ -193,7 +243,9 @@ export function Navbar() {
       {/* Overlay backdrop */}
       <div
         className={`fixed inset-0 z-[55] bg-black/50 transition-opacity duration-500 ${
-          menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+          menuOpen
+            ? "opacity-100 pointer-events-auto"
+            : "opacity-0 pointer-events-none"
         }`}
         onClick={() => setMenuOpen(false)}
       />

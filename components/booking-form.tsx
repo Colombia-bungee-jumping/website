@@ -20,7 +20,7 @@ export function BookingForm() {
 
   if (submitted) {
     return (
-      <section id="reservar" className="py-24 bg-background">
+      <section id="reservar" className="pt-40 pb-24 bg-background">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <AnimateOnScroll variant="zoom-in" duration={600}>
             <Card className="bg-card border-border">
@@ -49,7 +49,7 @@ export function BookingForm() {
   }
 
   return (
-    <section id="reservar" className="py-24 bg-background">
+    <section id="reservar" className="pt-40 pb-24 bg-background">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
           <div>
@@ -62,7 +62,7 @@ export function BookingForm() {
               <h2 className="font-display text-5xl sm:text-7xl text-foreground tracking-wide mb-6">
                 RESERVA TU
                 <br />
-                <span className="text-primary">AVENTURA</span>
+                <span className="text-primary">SALTO</span>
               </h2>
             </AnimateOnScroll>
             <AnimateOnScroll variant="blur-in" delay={200}>

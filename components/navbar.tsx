@@ -3,6 +3,12 @@
 import { useState, useEffect } from "react";
 import { Menu, X, Globe } from "lucide-react";
 import { company } from "@/config/company";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const navLinks = [
   { label: "Inicio", href: "#inicio" },
@@ -14,9 +20,9 @@ const navLinks = [
 ];
 
 const languages = [
-  { code: "es", label: "ES" },
-  { code: "en", label: "EN" },
-  { code: "fr", label: "FR" },
+  { code: "es", label: "ES", flagPath: "/icons/es.svg" },
+  { code: "en", label: "EN", flagPath: "/icons/gb.svg" },
+  { code: "fr", label: "FR", flagPath: "/icons/fr.svg" },
 ];
 
 export function Navbar() {
@@ -24,7 +30,6 @@ export function Navbar() {
   const [animateMenu, setAnimateMenu] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [currentLang, setCurrentLang] = useState("es");
-  const [langMenuOpen, setLangMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -61,7 +66,7 @@ export function Navbar() {
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3">
           <a
-            href="#reservar"
+            href="/reservar"
             className="flex items-center justify-center gap-2 hover:text-primary-foreground/80 transition-colors group"
           >
             <span className="font-display text-lg sm:text-xl uppercase tracking-widest">
@@ -108,37 +113,47 @@ export function Navbar() {
             </a>
 
             {/* Language selector - right */}
-            <div className="ml-auto relative">
-              <button
-                onClick={() => setLangMenuOpen(!langMenuOpen)}
-                className="flex items-center gap-1 text-foreground hover:text-primary transition-colors"
-                aria-label="Seleccionar idioma"
-              >
-                <Globe className="h-5 w-5" />
-                <span className="font-display text-sm uppercase tracking-wider">
-                  {currentLang}
-                </span>
-              </button>
-              {langMenuOpen && (
-                <div className="absolute right-0 mt-2 w-20 bg-background border border-border rounded-md shadow-lg overflow-hidden">
+            <div className="ml-auto">
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <button
+                    className="flex items-center gap-2 text-foreground hover:text-primary transition-colors focus:outline-none"
+                    aria-label="Seleccionar idioma"
+                  >
+                    {languages.map((lang) =>
+                      lang.code === currentLang ? (
+                        <img
+                          key={lang.code}
+                          src={lang.flagPath}
+                          alt={`${lang.label} flag`}
+                          className="w-5 h-5 rounded-full"
+                        />
+                      ) : null,
+                    )}
+                    <span className="font-display text-sm uppercase tracking-wider">
+                      {currentLang}
+                    </span>
+                  </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-28">
                   {languages.map((lang) => (
-                    <button
+                    <DropdownMenuItem
                       key={lang.code}
-                      onClick={() => {
-                        setCurrentLang(lang.code);
-                        setLangMenuOpen(false);
-                      }}
-                      className={`block w-full px-4 py-2 text-left text-sm hover:bg-accent transition-colors ${
-                        currentLang === lang.code
-                          ? "bg-accent text-primary"
-                          : "text-foreground"
+                      onClick={() => setCurrentLang(lang.code)}
+                      className={`flex items-center gap-3 ${
+                        currentLang === lang.code ? "text-primary" : ""
                       }`}
                     >
-                      {lang.label}
-                    </button>
+                      <img
+                        src={lang.flagPath}
+                        alt={`${lang.label} flag`}
+                        className="w-5 h-5 rounded-full"
+                      />
+                      <span>{lang.label}</span>
+                    </DropdownMenuItem>
                   ))}
-                </div>
-              )}
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
           </div>
         </div>
@@ -152,7 +167,7 @@ export function Navbar() {
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3">
           <a
-            href="#reservar"
+            href="/reservar"
             className="flex items-center justify-center gap-2 text-primary-foreground hover:text-primary-foreground/80 transition-colors group"
           >
             <span className="font-display text-lg sm:text-xl uppercase tracking-widest">
@@ -205,13 +220,19 @@ export function Navbar() {
               key={link.href}
               href={link.href}
               className={`font-display text-4xl uppercase tracking-wider text-muted-foreground hover:text-primary transition-colors duration-150 ${
-                animateMenu ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-8"
+                animateMenu
+                  ? "opacity-100 translate-x-0"
+                  : "opacity-0 -translate-x-8"
               }`}
-              style={animateMenu ? {
-                transitionProperty: "opacity, transform",
-                transitionDuration: "400ms",
-                transitionDelay: `${150 + index * 120}ms`,
-              } : undefined}
+              style={
+                animateMenu
+                  ? {
+                      transitionProperty: "opacity, transform",
+                      transitionDuration: "400ms",
+                      transitionDelay: `${150 + index * 120}ms`,
+                    }
+                  : undefined
+              }
               onClick={() => {
                 setMenuOpen(false);
               }}
@@ -220,7 +241,7 @@ export function Navbar() {
             </a>
           ))}
           <a
-            href="#reservar"
+            href="/reservar"
             onClick={() => {
               setMenuOpen(false);
             }}
@@ -229,11 +250,15 @@ export function Navbar() {
                 ? "opacity-100 translate-x-0"
                 : "opacity-0 -translate-x-8"
             }`}
-            style={animateMenu ? {
-              transitionProperty: "opacity, transform",
-              transitionDuration: "400ms",
-              transitionDelay: `${150 + navLinks.length * 120 + 150}ms`,
-            } : undefined}
+            style={
+              animateMenu
+                ? {
+                    transitionProperty: "opacity, transform",
+                    transitionDuration: "400ms",
+                    transitionDelay: `${150 + navLinks.length * 120 + 150}ms`,
+                  }
+                : undefined
+            }
           >
             Reservar ahora
           </a>

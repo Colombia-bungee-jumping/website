@@ -1,10 +1,9 @@
 import { Navbar } from "@/components/navbar"
 import { Hero } from "@/components/hero"
+import { Experiences } from "@/components/experiences"
 import { Safety } from "@/components/safety"
 import { Testimonials } from "@/components/testimonials"
-import { FAQ } from "@/components/faq"
 import { Location } from "@/components/location"
-import { BookingForm } from "@/components/booking-form"
 import { Footer } from "@/components/footer"
 import { DiagonalDivider } from "@/components/diagonal-divider"
 import { WhatsAppButton } from "@/components/whatsapp-button"
@@ -14,8 +13,9 @@ export default function Home() {
     <main>
       <Navbar />
       <Hero />
+      <Experiences />
       <DiagonalDivider
-        fromColor="hsl(var(--background))"
+        fromColor="hsl(var(--secondary))"
         toColor="hsl(var(--background))"
         direction="right"
       />
@@ -31,19 +31,7 @@ export default function Home() {
         toColor="hsl(var(--background))"
         direction="right"
       />
-      <FAQ />
-      <DiagonalDivider
-        fromColor="hsl(var(--background))"
-        toColor="hsl(var(--secondary))"
-        direction="left"
-      />
       <Location />
-      <DiagonalDivider
-        fromColor="hsl(var(--secondary))"
-        toColor="hsl(var(--background))"
-        direction="right"
-      />
-      <BookingForm />
       <Footer />
       <WhatsAppButton />
     </main>

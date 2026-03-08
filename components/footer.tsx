@@ -1,20 +1,23 @@
 import { ChevronDown } from "lucide-react";
 import { socialLinks } from "@/config/social-links";
 import { company } from "@/config/company";
+import { services } from "@/config/services";
 import { formatPhoneNumber } from "@/lib/utils";
 
 export function Footer() {
   return (
     <footer className="bg-secondary border-t border-border py-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
-          <div className="md:col-span-1">
-            <a href="#inicio" className="flex items-center gap-1 mb-4">
-              <span className="font-display text-xl tracking-wider text-foreground">
-                {company.name}
-              </span>
+        <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-[400px_1fr_1fr_1fr] xl:grid-cols-[580px_1fr_1fr_1fr] gap-10">
+          <div className="flex flex-col sm:flex-row sm:col-span-3 lg:col-span-1 gap-6 sm:gap-10">
+            <a href="#inicio">
+              <img
+                src="/logo.svg"
+                alt={`${company.name} logo`}
+                className="h-24"
+              />
             </a>
-            <p className="text-sm text-muted-foreground leading-relaxed">
+            <p className="text-sm text-muted-foreground leading-relaxed lg:max-w-[250px]">
               La empresa lider en experiencias de bungee jumping en Colombia y
               Latinoamerica. Adrenalina pura con seguridad garantizada.
             </p>
@@ -25,38 +28,16 @@ export function Footer() {
               Experiencias
             </h4>
             <ul className="flex flex-col gap-2">
-              <li>
-                <a
-                  href="#experiencias"
-                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  Salto Clasico
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#experiencias"
-                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  Salto Extremo
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#experiencias"
-                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  Salto Nocturno
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#experiencias"
-                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  Grupos Corporativos
-                </a>
-              </li>
+              {services.filter(s => s.showButton).map((service) => (
+                <li key={service.id}>
+                  <a
+                    href="#experiencias"
+                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    {service.title}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -128,11 +109,11 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="mt-12 pt-8 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
           <p className="text-xs text-muted-foreground">
             {`© ${new Date().getFullYear()} ${company.name}. Todos los derechos reservados.`}
           </p>
-          <div className="flex items-center gap-6">
+          <div className="flex flex-wrap justify-center sm:justify-end items-center gap-4 sm:gap-6">
             <a
               href="#"
               className="text-xs text-muted-foreground hover:text-foreground transition-colors"

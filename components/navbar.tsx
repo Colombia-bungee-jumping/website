@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 const navLinks = [
-  { label: "Inicio", href: "#inicio" },
+  { label: "Inicio", href: "/" },
   { label: "Experiencias", href: "#experiencias" },
   { label: "Nosotros", href: "#nosotros" },
   { label: "Seguridad", href: "#seguridad" },
@@ -25,7 +25,11 @@ const languages = [
   { code: "fr", label: "FR", flagPath: "/icons/fr.svg" },
 ];
 
-export function Navbar() {
+interface NavbarProps {
+  showBanner?: boolean;
+}
+
+export function Navbar({ showBanner = true }: NavbarProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [animateMenu, setAnimateMenu] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -47,8 +51,8 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const showBottomBanner = scrollProgress > 0.1;
-  const showTopBanner = !showBottomBanner;
+  const showBottomBanner = scrollProgress > 0.1 && showBanner;
+  const showTopBanner = !showBottomBanner && showBanner;
 
   useEffect(() => {
     if (!menuOpen) {

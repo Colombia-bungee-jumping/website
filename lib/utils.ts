@@ -23,3 +23,16 @@ export function formatPhoneNumber(phone: string) {
 
   return `+${country} ${part1} ${part2} ${part3}`;
 }
+
+export function formatCurrency(
+  amount: number,
+  locale = "es-CO",
+  currency = "COP",
+) {
+  return new Intl.NumberFormat(locale, {
+    style: "currency",
+    currency,
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(amount);
+}

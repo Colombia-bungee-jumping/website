@@ -7,7 +7,7 @@ import { services } from "@/config/services"
 
 export function Experiences() {
   return (
-    <section id="experiencias" className="py-24 bg-secondary">
+    <section id="experiencias" className="py-24 bg-background">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <AnimateOnScroll variant="fade-down" duration={600}>

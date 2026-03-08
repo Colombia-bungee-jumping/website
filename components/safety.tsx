@@ -33,9 +33,9 @@ const safetyFeatures = [
 
 export function Safety() {
   return (
-    <section id="seguridad" className="py-24 bg-background">
+    <section id="seguridad" className="py-24 bg-secondary">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-[1.3fr_1fr] gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-16 items-center">
           <div>
             <AnimateOnScroll variant="fade-down" duration={600}>
               <p className="text-primary uppercase tracking-[0.3em] text-sm font-semibold mb-4">
@@ -66,7 +66,7 @@ export function Safety() {
                   delay={300 + i * 150}
                   duration={700}
                 >
-                  <div className="flex gap-4">
+                  <div className="flex gap-4 bg-white/5 rounded-lg p-4 border border-white/10">
                     <div className="flex-shrink-0 h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center">
                       <feature.icon className="h-6 w-6 text-primary" />
                     </div>
@@ -83,12 +83,12 @@ export function Safety() {
               ))}
             </div>
           </div>
-          <AnimateOnScroll variant="fade-left" duration={900} delay={200}>
-            <div className="relative">
+          <AnimateOnScroll variant="fade-left" duration={900} delay={200} className="h-full">
+            <div className="relative h-full">
               <img
                 src="/images/safety-team.jpg"
                 alt="Equipo de seguridad de VertexDrop preparando equipos de bungee jumping"
-                className="rounded-lg w-full h-[500px] object-cover"
+                className="rounded-lg w-full h-full object-cover"
               />
               <div className="absolute inset-0 rounded-lg bg-gradient-to-t from-background/50 to-transparent" />
               <div className="absolute bottom-6 left-6 right-6 bg-card/90 backdrop-blur-sm rounded-lg p-4 border border-border">

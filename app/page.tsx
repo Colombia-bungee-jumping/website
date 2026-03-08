@@ -15,20 +15,20 @@ export default function Home() {
       <Hero />
       <Experiences />
       <DiagonalDivider
-        fromColor="hsl(var(--secondary))"
-        toColor="hsl(var(--background))"
+        fromColor="hsl(var(--background))"
+        toColor="hsl(var(--secondary))"
         direction="right"
       />
       <Safety />
       <DiagonalDivider
-        fromColor="hsl(var(--background))"
-        toColor="hsl(var(--secondary))"
+        fromColor="hsl(var(--secondary))"
+        toColor="hsl(var(--background))"
         direction="left"
       />
       <Testimonials />
       <DiagonalDivider
-        fromColor="hsl(var(--secondary))"
-        toColor="hsl(var(--background))"
+        fromColor="hsl(var(--background))"
+        toColor="hsl(var(--secondary))"
         direction="right"
       />
       <Location />

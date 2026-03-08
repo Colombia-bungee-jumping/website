@@ -37,7 +37,7 @@ export function Testimonials() {
   }, [isDragging, startX, scrollLeft])
 
   return (
-    <section id="testimonios" className="py-24 bg-secondary pb-8">
+    <section id="testimonios" className="py-24 bg-background">
       <div className="mx-auto max-w-full px-0">
         <div className="text-center mb-16 px-4">
           <AnimateOnScroll variant="fade-down" duration={600}>
@@ -85,11 +85,11 @@ export function Testimonials() {
                     {testimonial.text}
                   </p>
                   <div className="flex items-center gap-4 pt-4 border-t border-border/50 mt-auto">
-                    <div className={`h-12 w-12 rounded-full bg-gradient-to-r ${testimonial.color} flex items-center justify-center flex-shrink-0 shadow-lg`}>
-                      <span className="text-white font-bold text-sm">
-                        {testimonial.name.split(" ").map((n) => n[0]).join("")}
-                      </span>
-                    </div>
+                    <img
+                      src={testimonial.image}
+                      alt={testimonial.name}
+                      className="h-12 w-12 rounded-full object-cover flex-shrink-0 shadow-lg"
+                    />
                     <div className="flex items-center gap-2">
                       <p className="text-foreground font-semibold">{testimonial.name}</p>
                       <img

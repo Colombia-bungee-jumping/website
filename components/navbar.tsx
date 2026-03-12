@@ -99,16 +99,12 @@ export function Navbar({ showBanner = true }: NavbarProps) {
                 }
               }}
               className="flex items-center gap-2 text-foreground hover:text-primary transition-colors shrink-0"
-              aria-label={menuOpen ? "Cerrar menu" : "Abrir menu"}
+              aria-label="Abrir menu de navegacion"
             >
-              {menuOpen ? (
-                <X className="h-6 w-6" />
-              ) : (
-                <Menu className="h-6 w-6" />
-              )}
+              <Menu className="h-6 w-6" />
             </button>
 
-            <a href="#inicio" className="flex items-center gap-1 shrink-0">
+            <a href="/" className="flex items-center gap-1 shrink-0">
               <img
                 src="/logo.svg"
                 alt={`${company.name} logo`}

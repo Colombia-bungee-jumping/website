@@ -13,8 +13,8 @@ export const services: Service[] = [
   {
     id: "individual",
     title: "SALTO INDIVIDUAL",
-    priceFormatted: "$90.000 COP",
-    price: "90000",
+    priceFormatted: "$120.000 COP",
+    price: "120000",
     image: "/images/jump-classic.jpg",
     alt: "Salto individual de bungee jumping",
     features: ["Video HD incluido", "Certificado de salto", "Fotos profesionales"],
@@ -23,8 +23,8 @@ export const services: Service[] = [
   {
     id: "pareja",
     title: "SALTO EN PAREJA",
-    priceFormatted: "$150.000 COP",
-    price: "150000",
+    priceFormatted: "$200.000 COP",
+    price: "200000",
     image: "/images/jump-couple.jpg",
     alt: "Salto en pareja de bungee jumping",
     features: ["Video HD para los dos", "2 Certificados", "Fotos profesionales"],

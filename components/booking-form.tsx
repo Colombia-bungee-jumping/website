@@ -53,6 +53,14 @@ export function BookingForm() {
   }>({});
   const [date, setDate] = useState<Date | undefined>(undefined);
 
+  const [checkoutData, setCheckoutData] = useState<{
+    reference: string;
+    signature: string;
+    publicKey: string;
+  } | null>(null);
+
+  const [loadingCheckout, setLoadingCheckout] = useState(false);
+
   const validateStep2 = () => {
     const newErrors: typeof errors = {};
 
@@ -114,6 +122,27 @@ export function BookingForm() {
     personalData.email &&
     isValidEmail(personalData.email) &&
     personalData.fecha;
+
+  const createCheckout = async () => {
+    setLoadingCheckout(true);
+
+    const res = await fetch("/api/checkout/create", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        amount: total,
+        cart,
+        ...personalData,
+      }),
+    });
+
+    const data = await res.json();
+
+    setCheckoutData(data);
+    setLoadingCheckout(false);
+  };
 
   if (submitted) {
     return (
@@ -368,8 +397,9 @@ export function BookingForm() {
                       <ArrowLeft className="mr-2 h-5 w-5" /> Volver
                     </Button>
                     <Button
-                      onClick={() => {
+                      onClick={async () => {
                         if (validateStep2()) {
+                          await createCheckout();
                           setStep(3);
                         }
                       }}
@@ -460,13 +490,21 @@ export function BookingForm() {
                     >
                       <ArrowLeft className="mr-2 h-5 w-5" /> Volver
                     </Button>
-                    <WompiPaymentButton
-                      publicKey="pub_test_1234567890abcdef"
-                      amountInCents={total}
-                      reference="4XMPGKWWPKWQ"
-                      currency="COP"
-                      signature="37c8407747e595535433ef8f6a811d853cd943046624a0ec04662b17bbf33bf5"
-                    />
+                    {loadingCheckout && (
+                      <Button disabled className="py-6">
+                        Preparando pago...
+                      </Button>
+                    )}
+
+                    {!loadingCheckout && checkoutData && (
+                      <WompiPaymentButton
+                        publicKey={checkoutData.publicKey}
+                        amountInCents={total}
+                        reference={checkoutData.reference}
+                        currency="COP"
+                        signature={checkoutData.signature}
+                      />
+                    )}
                   </div>
                 </div>
               )}

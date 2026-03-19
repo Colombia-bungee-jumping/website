@@ -58,7 +58,7 @@ export function Calendar({
 
         day_outside: "text-muted-foreground opacity-50",
 
-        day_disabled: "text-muted-foreground opacity-50",
+        day_disabled: "text-muted-foreground/40 opacity-100 bg-muted/30 rounded-md",
 
         day_hidden: "invisible",
 

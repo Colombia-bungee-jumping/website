@@ -86,6 +86,14 @@
   background-color: hsl(var(--primary) / 0.9) !important;
 }
 
+.rdp-disabled {
+  color: gray !important;
+}
+
+.rdp-disabled:hover {
+  background: none !important;
+}
+
 .rdp-selected button {
   border: none !important;
 }

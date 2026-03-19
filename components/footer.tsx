@@ -8,8 +8,12 @@ export function Footer() {
   return (
     <footer className="bg-secondary border-t border-border py-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-[400px_1fr_1fr_1fr] xl:grid-cols-[580px_1fr_1fr_1fr] gap-10">
-          <div className="flex flex-col sm:flex-row sm:col-span-3 lg:col-span-1 gap-6 sm:gap-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-10">
+          <div className="flex flex-col sm:col-span-2 lg:col-span-2 gap-6 sm:gap-10">
+            <p className="text-sm text-muted-foreground leading-relaxed lg:max-w-[250px]">
+              La empresa lider en experiencias de bungee jumping en Colombia y
+              Latinoamerica. Adrenalina pura con seguridad garantizada.
+            </p>
             <a href="#inicio">
               <img
                 src="/logo.svg"
@@ -17,10 +21,6 @@ export function Footer() {
                 className="h-24"
               />
             </a>
-            <p className="text-sm text-muted-foreground leading-relaxed lg:max-w-[250px]">
-              La empresa lider en experiencias de bungee jumping en Colombia y
-              Latinoamerica. Adrenalina pura con seguridad garantizada.
-            </p>
           </div>
 
           <div>
@@ -28,16 +28,50 @@ export function Footer() {
               Experiencias
             </h4>
             <ul className="flex flex-col gap-2">
-              {services.filter(s => s.showButton).map((service) => (
-                <li key={service.id}>
-                  <a
-                    href="#experiencias"
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    {service.title}
-                  </a>
-                </li>
-              ))}
+              {services
+                .filter((s) => s.showButton)
+                .map((service) => (
+                  <li key={service.id}>
+                    <a
+                      href="#experiencias"
+                      className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                    >
+                      {service.title}
+                    </a>
+                  </li>
+                ))}
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="text-foreground font-semibold uppercase tracking-wider text-sm mb-4">
+              Servicios
+            </h4>
+            <ul className="flex flex-col gap-2">
+              <li>
+                <a
+                  href="/estructuras-y-torres-para-bungee"
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  Estructuras y torres para Bungee
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/equipos-para-bungee-jumping"
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  Equipos para Bungee Jumping
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/bungee-en-grua-movil"
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  Bungee en grua movil
+                </a>
+              </li>
             </ul>
           </div>
 
@@ -48,7 +82,7 @@ export function Footer() {
             <ul className="flex flex-col gap-2">
               <li>
                 <a
-                  href="#nosotros"
+                  href="/nosotros"
                   className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                 >
                   Nosotros
@@ -56,7 +90,7 @@ export function Footer() {
               </li>
               <li>
                 <a
-                  href="#seguridad"
+                  href="/#seguridad"
                   className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                 >
                   Seguridad
@@ -64,7 +98,7 @@ export function Footer() {
               </li>
               <li>
                 <a
-                  href="#testimonios"
+                  href="/#testimonios"
                   className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                 >
                   Testimonios
@@ -72,7 +106,7 @@ export function Footer() {
               </li>
               <li>
                 <a
-                  href="#ubicacion"
+                  href="/#ubicacion"
                   className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                 >
                   Ubicacion

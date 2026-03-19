@@ -52,7 +52,7 @@ export function FAQ() {
   const whatsappUrl = process.env.NEXT_PUBLIC_WHATSAPP_URL ?? "#";
 
   return (
-    <section id="faq" className="py-24 bg-background">
+    <section id="faq" className="pb-24 bg-background">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-12 items-center">
           {/* Left side - Text and contact */}

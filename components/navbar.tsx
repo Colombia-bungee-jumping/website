@@ -12,11 +12,12 @@ import {
 
 const navLinks = [
   { label: "Inicio", href: "/" },
-  { label: "Experiencias", href: "#experiencias" },
-  { label: "Nosotros", href: "#nosotros" },
-  { label: "Seguridad", href: "#seguridad" },
-  { label: "Testimonios", href: "#testimonios" },
-  { label: "Ubicacion", href: "#ubicacion" },
+  { label: "Experiencias", href: "/#experiencias" },
+  { label: "Seguridad", href: "/#seguridad" },
+  { label: "Testimonios", href: "/#testimonios" },
+  { label: "FAQ", href: "/faq" },
+  { label: "Ubicacion", href: "/#ubicacion" },
+  { label: "Nosotros", href: "/nosotros" },
 ];
 
 const languages = [

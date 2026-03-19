@@ -56,6 +56,7 @@ export function BookingForm() {
   const [checkoutData, setCheckoutData] = useState<{
     reference: string;
     signature: string;
+    amountInCents: string;
     publicKey: string;
   } | null>(null);
 
@@ -499,7 +500,7 @@ export function BookingForm() {
                     {!loadingCheckout && checkoutData && (
                       <WompiPaymentButton
                         publicKey={checkoutData.publicKey}
-                        amountInCents={total * 100}
+                        amountInCents={checkoutData.amountInCents}
                         reference={checkoutData.reference}
                         currency="COP"
                         signature={checkoutData.signature}

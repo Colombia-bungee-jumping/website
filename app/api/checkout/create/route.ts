@@ -25,6 +25,7 @@ export async function POST(req: Request) {
   return NextResponse.json({
     reference,
     signature,
+    amountInCents,
     publicKey: process.env.WOMPI_PUBLIC_KEY,
   });
 }

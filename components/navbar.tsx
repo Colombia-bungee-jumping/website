@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Menu, X, Globe } from "lucide-react";
+import { Menu, X, Globe, ChevronDown } from "lucide-react";
 import { company } from "@/config/company";
 import {
   DropdownMenu,
@@ -17,6 +17,21 @@ const navLinks = [
   { label: "Testimonios", href: "/#testimonios" },
   { label: "FAQ", href: "/faq" },
   { label: "Ubicacion", href: "/#ubicacion" },
+  {
+    label: "Servicios",
+    href: "/servicios",
+    children: [
+      {
+        label: "Estructuras y torres para Bungee",
+        href: "/estructuras-y-torres-para-bungee",
+      },
+      {
+        label: "Equipos para Bungee Jumping",
+        href: "/equipos-para-bungee-jumping",
+      },
+      { label: "Bungee en grua movil", href: "/bungee-en-grua-movil" },
+    ],
+  },
   { label: "Nosotros", href: "/nosotros" },
 ];
 
@@ -35,6 +50,17 @@ export function Navbar({ showBanner = true }: NavbarProps) {
   const [animateMenu, setAnimateMenu] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [currentLang, setCurrentLang] = useState("es");
+  const [serviciosOpen, setServiciosOpen] = useState(false);
+  const [isLargeScreen, setIsLargeScreen] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsLargeScreen(window.innerWidth >= 768);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -58,6 +84,7 @@ export function Navbar({ showBanner = true }: NavbarProps) {
   useEffect(() => {
     if (!menuOpen) {
       setAnimateMenu(false);
+      setServiciosOpen(false);
     }
   }, [menuOpen]);
 
@@ -180,14 +207,15 @@ export function Navbar({ showBanner = true }: NavbarProps) {
 
       {/* Fullscreen overlay menu */}
       <div
-        className={`md:max-w-[500px] fixed inset-0 z-[65] bg-background/95 backdrop-blur-lg transition-transform duration-500 ease-out ${
+        className={`md:max-w-[600px] xl:max-w-[600px] fixed inset-0 z-[65] bg-background/95 backdrop-blur-lg transition-transform duration-500 ease-out ${
           menuOpen ? "translate-x-0" : "-translate-x-full"
         }`}
         style={{
           width: "100%",
-          clipPath: menuOpen
-            ? "polygon(0% 0%, 100% 0%, 85% 100%, 0% 100%)"
-            : "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+          clipPath:
+            menuOpen && isLargeScreen
+              ? "polygon(0% 0%, 100% 0%, 85% 100%, 0% 100%)"
+              : "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
         }}
         onTransitionEnd={() => {}}
       >
@@ -216,31 +244,78 @@ export function Navbar({ showBanner = true }: NavbarProps) {
         </div>
 
         <nav className="relative flex flex-col items-center justify-start h-full gap-4 lg:items-start lg:gap-2 lg:pl-16 xl:gap-4 lg:pr-32 pt-4 lg:pt-0 xl:pt-8">
-          {navLinks.map((link, index) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className={`font-display text-4xl uppercase tracking-wider text-muted-foreground hover:text-primary transition-colors duration-150 ${
-                animateMenu
-                  ? "opacity-100 translate-x-0"
-                  : "opacity-0 -translate-x-8"
-              }`}
-              style={
-                animateMenu
-                  ? {
-                      transitionProperty: "opacity, transform",
-                      transitionDuration: "400ms",
-                      transitionDelay: `${150 + index * 120}ms`,
-                    }
-                  : undefined
-              }
-              onClick={() => {
-                setMenuOpen(false);
-              }}
-            >
-              {link.label}
-            </a>
-          ))}
+          {navLinks.map((link, index) =>
+            link.children ? (
+              <div key={link.href} className="flex flex-col items-center lg:items-start">
+                <a
+                  href="#"
+                  className={`font-display text-4xl uppercase tracking-wider text-muted-foreground hover:text-primary transition-colors duration-150 ${
+                    animateMenu
+                      ? "opacity-100 translate-x-0"
+                      : "opacity-0 -translate-x-8"
+                  }`}
+                  style={
+                    animateMenu
+                      ? {
+                          transitionProperty: "opacity, transform",
+                          transitionDuration: "400ms",
+                          transitionDelay: `${150 + index * 120}ms`,
+                        }
+                      : undefined
+                  }
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setServiciosOpen(!serviciosOpen);
+                  }}
+                >
+                  {link.label}
+                  <ChevronDown
+                    className={`inline-block ml-2 w-6 h-6 transition-transform duration-300 ${serviciosOpen ? "rotate-180" : ""}`}
+                  />
+                </a>
+                <div
+                  className={`flex flex-col items-center lg:items-start gap-1 overflow-hidden transition-all duration-300 ${
+                    serviciosOpen ? "max-h-48 opacity-100" : "max-h-0 opacity-0"
+                  }`}
+                >
+                  {link.children.map((child) => (
+                    <a
+                      key={child.href}
+                      href={child.href}
+                      className="font-display text-2xl uppercase tracking-wider text-muted-foreground/70 hover:text-primary transition-colors duration-150"
+                      onClick={() => setMenuOpen(false)}
+                    >
+                      {child.label}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <a
+                key={link.href}
+                href={link.href}
+                className={`font-display text-4xl uppercase tracking-wider text-muted-foreground hover:text-primary transition-colors duration-150 ${
+                  animateMenu
+                    ? "opacity-100 translate-x-0"
+                    : "opacity-0 -translate-x-8"
+                }`}
+                style={
+                  animateMenu
+                    ? {
+                        transitionProperty: "opacity, transform",
+                        transitionDuration: "400ms",
+                        transitionDelay: `${150 + index * 120}ms`,
+                      }
+                    : undefined
+                }
+                onClick={() => {
+                  setMenuOpen(false);
+                }}
+              >
+                {link.label}
+              </a>
+            ),
+          )}
           <a
             href="/reservar"
             onClick={() => {

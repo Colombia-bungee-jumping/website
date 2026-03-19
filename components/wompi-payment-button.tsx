@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 
 interface Props {
   publicKey: string;
-  amountInCents: number;
+  amountInCents: string;
   reference: string;
   currency: string;
   signature: string;

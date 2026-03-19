@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 
-interface WompiPaymentButtonProps {
+interface Props {
   publicKey: string;
   amountInCents: number;
   reference: string;
@@ -10,23 +10,22 @@ interface WompiPaymentButtonProps {
   signature: string;
 }
 
-const WompiPaymentButton = ({
+export default function WompiPaymentButton({
   publicKey,
   amountInCents,
   reference,
   currency,
   signature,
-}: WompiPaymentButtonProps) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const initialized = useRef(false);
+}: Props) {
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (initialized.current) return;
-    initialized.current = true;
+    if (!ref.current) return;
 
-    if (!containerRef.current) return;
+    ref.current.innerHTML = "";
 
     const script = document.createElement("script");
+
     script.src = "https://checkout.wompi.co/widget.js";
 
     script.setAttribute("data-render", "button");
@@ -35,12 +34,14 @@ const WompiPaymentButton = ({
     script.setAttribute("data-amount-in-cents", amountInCents.toString());
     script.setAttribute("data-reference", reference);
     script.setAttribute("data-signature:integrity", signature);
-    script.setAttribute("data-button-text", "Pagar ahora");
 
-    containerRef.current.appendChild(script);
+    script.setAttribute(
+      "data-redirect-url",
+      `${process.env.NEXT_PUBLIC_APP_URL}/payment/result`,
+    );
+
+    ref.current.appendChild(script);
   }, []);
 
-  return <div ref={containerRef} className="flex-1" />;
-};
-
-export default WompiPaymentButton;
+  return <div ref={ref} className="flex-1" />;
+}

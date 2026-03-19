@@ -5,12 +5,12 @@ import { generateSignature } from "@/lib/wompi";
 
 export async function POST(req: Request) {
   const body = await req.json();
-
+  const amountInCents = body.amount * 100;
   const reference = randomUUID();
 
   await createBooking({
     reference,
-    amount: body.amount,
+    amount: amountInCents,
     currency: "COP",
     nombre: body.nombre,
     telefono: body.telefono,
@@ -20,7 +20,7 @@ export async function POST(req: Request) {
     status: "pending",
   });
 
-  const signature = generateSignature(reference, body.amount, "COP");
+  const signature = await generateSignature(reference, amountInCents, "COP");
 
   return NextResponse.json({
     reference,

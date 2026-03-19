@@ -1,6 +1,6 @@
 import crypto from "crypto";
 
-export function generateSignature(
+export async function generateSignature(
   reference: string,
   amount: number,
   currency: string,
@@ -9,5 +9,12 @@ export function generateSignature(
 
   const data = `${reference}${amount}${currency}${integrity}`;
 
-  return crypto.createHash("sha256").update(data).digest("hex");
+  const encondedText = new TextEncoder().encode(data);
+  const hashBuffer = await crypto.subtle.digest("SHA-256", encondedText);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  const hashHex = hashArray
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
+
+  return hashHex;
 }

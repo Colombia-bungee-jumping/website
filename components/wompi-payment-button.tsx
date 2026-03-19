@@ -34,7 +34,6 @@ export default function WompiPaymentButton({
     script.setAttribute("data-amount-in-cents", amountInCents.toString());
     script.setAttribute("data-reference", reference);
     script.setAttribute("data-signature:integrity", signature);
-    script.setAttribute("data-button-text", "Pagar ahora");
 
     script.setAttribute(
       "data-redirect-url",

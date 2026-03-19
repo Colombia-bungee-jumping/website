@@ -499,7 +499,7 @@ export function BookingForm() {
                     {!loadingCheckout && checkoutData && (
                       <WompiPaymentButton
                         publicKey={checkoutData.publicKey}
-                        amountInCents={total}
+                        amountInCents={total * 100}
                         reference={checkoutData.reference}
                         currency="COP"
                         signature={checkoutData.signature}

@@ -1,28 +1,67 @@
-import { Navbar } from "@/components/navbar"
-import { Footer } from "@/components/footer"
-import { WhatsAppButton } from "@/components/whatsapp-button"
+"use client";
 
-export const metadata = {
-  title: "Bungee en Grúa Móvil | Colombia Bungee",
-  description: "Experiencia única de Bungee Jumping en grúa móvil. ¡Vive la adrenalina desde las alturas!",
-}
+import { Navbar } from "@/components/navbar";
+import { Footer } from "@/components/footer";
+import { WhatsAppButton } from "@/components/whatsapp-button";
+import { ValueProposition } from "@/app/bungee-en-grua-movil/value-proposition";
+import { Differentiators } from "@/app/bungee-en-grua-movil/differentiators";
+import { Experience } from "@/app/bungee-en-grua-movil/experience";
+import { TechnicalSpecs } from "@/app/bungee-en-grua-movil/technical-specs";
+import { WhatsIncluded } from "@/app/bungee-en-grua-movil/whats-included";
+import { SocialProof } from "@/app/bungee-en-grua-movil/social-proof";
+import { DiagonalDivider } from "@/components/diagonal-divider";
+import { Hero } from "@/components/hero";
 
 export default function BungeeGruaMovil() {
   return (
     <main>
-      <Navbar />
-      <section id="inicio" className="min-h-screen pt-24 flex items-center justify-center bg-gradient-to-b from-primary/10 to-background">
-        <div className="text-center px-4">
-          <h1 className="font-display text-4xl md:text-6xl uppercase tracking-widest mb-4">
-            Bungee en Grúa Móvil
-          </h1>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Vive la adrenalina del Bungee Jumping desde las alturas con nuestra grúa móvil
-          </p>
-        </div>
-      </section>
+      <Navbar showBanner={true} bannerText="Cotizar para tu evento" bannerHref="https://wa.me/573007709700" bannerNewTab={true} />
+      <Hero
+        subtitle="Bungee Móvil en Colombia"
+        title="SALTA DONDE NADIE MÁS PUEDE"
+        imageSrc="/images/jump-grua.jpg"
+        imageAlt="Bungee jumping desde grúa móvil"
+        scrollLink="#propuesta"
+        scrollLabel="Ver más contenido"
+        stats={[
+          { end: 50, suffix: "m", label: "Altura maxima", duration: 2000 },
+          { end: 30, suffix: "x30m", label: "Espacio requerido", duration: 2500 },
+          { end: 2, suffix: "hrs", label: "Instalacion", duration: 1800 },
+        ]}
+      />
+      <ValueProposition />
+      <DiagonalDivider
+        fromColor="hsl(var(--background))"
+        toColor="hsl(var(--secondary))"
+        direction="right"
+      />
+      <Differentiators />
+      <DiagonalDivider
+        fromColor="hsl(var(--secondary))"
+        toColor="hsl(var(--background))"
+        direction="left"
+      />
+      <Experience />
+      <DiagonalDivider
+        fromColor="hsl(var(--background))"
+        toColor="hsl(var(--secondary))"
+        direction="right"
+      />
+      <TechnicalSpecs />
+      <DiagonalDivider
+        fromColor="hsl(var(--secondary))"
+        toColor="hsl(var(--background))"
+        direction="left"
+      />
+      <WhatsIncluded />
+      <DiagonalDivider
+        fromColor="hsl(var(--background))"
+        toColor="hsl(var(--secondary))"
+        direction="right"
+      />
+      <SocialProof />
       <Footer />
       <WhatsAppButton />
     </main>
-  )
+  );
 }

@@ -43,9 +43,12 @@ const languages = [
 
 interface NavbarProps {
   showBanner?: boolean;
+  bannerText?: string;
+  bannerHref?: string;
+  bannerNewTab?: boolean;
 }
 
-export function Navbar({ showBanner = true }: NavbarProps) {
+export function Navbar({ showBanner = true, bannerText = "Reserva tu salto ahora", bannerHref = "/reservar", bannerNewTab = false }: NavbarProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [animateMenu, setAnimateMenu] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -98,11 +101,13 @@ export function Navbar({ showBanner = true }: NavbarProps) {
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3">
           <a
-            href="/reservar"
+            href={bannerHref}
+            target={bannerNewTab ? "_blank" : undefined}
+            rel={bannerNewTab ? "noopener noreferrer" : undefined}
             className="flex items-center justify-center gap-2 hover:text-primary-foreground/80 transition-colors group"
           >
             <span className="font-display text-lg sm:text-xl uppercase tracking-widest">
-              Reserva tu salto ahora
+              {bannerText}
             </span>
           </a>
         </div>
@@ -195,11 +200,13 @@ export function Navbar({ showBanner = true }: NavbarProps) {
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3">
           <a
-            href="/reservar"
+            href={bannerHref}
+            target={bannerNewTab ? "_blank" : undefined}
+            rel={bannerNewTab ? "noopener noreferrer" : undefined}
             className="flex items-center justify-center gap-2 text-primary-foreground hover:text-primary-foreground/80 transition-colors group"
           >
             <span className="font-display text-lg sm:text-xl uppercase tracking-widest">
-              Reserva tu salto ahora
+              {bannerText}
             </span>
           </a>
         </div>

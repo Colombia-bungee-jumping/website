@@ -8,8 +8,8 @@ export function Footer() {
   return (
     <footer className="bg-secondary border-t border-border py-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-10">
-          <div className="flex flex-col sm:col-span-2 lg:col-span-2 gap-6 sm:gap-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr_1fr] gap-10">
+          <div className="flex flex-col sm:col-span-2 lg:col-span-1 gap-6 sm:gap-10">
             <p className="text-sm text-muted-foreground leading-relaxed lg:max-w-[250px]">
               La empresa lider en experiencias de bungee jumping en Colombia y
               Latinoamerica. Adrenalina pura con seguridad garantizada.

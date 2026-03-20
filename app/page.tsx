@@ -12,7 +12,7 @@ export default function Home() {
   return (
     <main>
       <Navbar />
-      <Hero />
+      <Hero title="70 metros de pura adrenalina" />
       <Experiences />
       <DiagonalDivider
         fromColor="hsl(var(--background))"

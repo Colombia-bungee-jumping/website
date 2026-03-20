@@ -23,6 +23,9 @@ export function ValueProposition() {
             if (!videoSrc.includes("autoplay=1")) {
               videoRef.current.src = videoSrc + "&autoplay=1";
             }
+          } else if (videoRef.current) {
+            const videoSrc = videoRef.current.src;
+            videoRef.current.src = videoSrc.replace("&autoplay=1", "");
           }
         });
       },

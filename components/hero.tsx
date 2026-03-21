@@ -22,6 +22,7 @@ interface HeroProps {
   imageAlt?: string;
   scrollLink?: string;
   scrollLabel?: string;
+  titleSize?: "sm" | "md" | "lg" | "xl";
 }
 
 export function Hero({
@@ -32,6 +33,7 @@ export function Hero({
   imageAlt = "Persona saltando en bungee jumping sobre un canon al atardecer",
   scrollLink = "#experiencias",
   scrollLabel = "Ver mas contenido",
+  titleSize = "xl",
 }: HeroProps) {
   const [scrollY, setScrollY] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
@@ -51,7 +53,13 @@ export function Hero({
   }, []);
 
   const defaultStats: Stat[] = [
-    { prefix: "+", end: 65, suffix: "K", label: "Saltos realizados", duration: 2000 },
+    {
+      prefix: "+",
+      end: 65,
+      suffix: "K",
+      label: "Saltos realizados",
+      duration: 2000,
+    },
     { prefix: "+", end: 18, label: "Anios de experiencia", duration: 2500 },
     { end: 0, label: "Accidentes", duration: 1800 },
     { end: 4.9, decimals: 1, label: "Valoracion Google", duration: 2200 },
@@ -84,18 +92,30 @@ export function Hero({
         </AnimateOnScroll>
 
         <AnimateOnScroll variant="zoom-in" duration={900} delay={200}>
-          <h1 className="font-display text-6xl sm:text-8xl xl:text-9xl text-foreground leading-none tracking-wide text-balance font-black">
+          <h1
+            className={`font-display text-foreground leading-none tracking-wide text-balance font-black ${
+              titleSize === "sm"
+                ? "text-3xl sm:text-4xl"
+                : titleSize === "md"
+                  ? "text-4xl sm:text-5xl"
+                  : titleSize === "lg"
+                    ? "text-5xl sm:text-8xl"
+                    : "text-6xl sm:text-8xl xl:text-9xl"
+            }`}
+          >
             {title}
           </h1>
         </AnimateOnScroll>
 
         {displayStats.length > 0 && (
           <AnimateOnScroll variant="fade-up" delay={900} duration={800}>
-            <div className={`mt-20 lg:mt-10 xl:mt-20 grid gap-6 max-w-3xl mx-auto ${
-              displayStats.length === 4
-                ? "grid-cols-2 lg:grid-cols-4"
-                : "grid-cols-3"
-            }`}>
+            <div
+              className={`mt-20 lg:mt-10 xl:mt-20 grid gap-6 max-w-3xl mx-auto ${
+                displayStats.length === 4
+                  ? "grid-cols-2 lg:grid-cols-4"
+                  : "grid-cols-3"
+              }`}
+            >
               {displayStats.map((stat, index) => (
                 <StatCounter
                   key={index}

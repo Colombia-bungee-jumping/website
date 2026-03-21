@@ -48,7 +48,12 @@ interface NavbarProps {
   bannerNewTab?: boolean;
 }
 
-export function Navbar({ showBanner = true, bannerText = "Reserva tu salto ahora", bannerHref = "/reservar", bannerNewTab = false }: NavbarProps) {
+export function Navbar({
+  showBanner = true,
+  bannerText = "Reserva tu salto ahora",
+  bannerHref = "/reservar",
+  bannerNewTab = false,
+}: NavbarProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [animateMenu, setAnimateMenu] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -214,7 +219,7 @@ export function Navbar({ showBanner = true, bannerText = "Reserva tu salto ahora
 
       {/* Fullscreen overlay menu */}
       <div
-        className={`md:max-w-[600px] xl:max-w-[600px] fixed inset-0 z-[65] bg-background/95 backdrop-blur-lg transition-transform duration-500 ease-out ${
+        className={`md:max-w-[600px] xl:max-w-[550px] fixed inset-0 z-[65] bg-background/95 backdrop-blur-lg transition-transform duration-500 ease-out ${
           menuOpen ? "translate-x-0" : "-translate-x-full"
         }`}
         style={{
@@ -253,7 +258,10 @@ export function Navbar({ showBanner = true, bannerText = "Reserva tu salto ahora
         <nav className="relative flex flex-col items-center justify-start h-full gap-4 lg:items-start lg:gap-2 lg:pl-16 xl:gap-4 lg:pr-32 pt-4 lg:pt-0 xl:pt-8">
           {navLinks.map((link, index) =>
             link.children ? (
-              <div key={link.href} className="flex flex-col items-center lg:items-start">
+              <div
+                key={link.href}
+                className="flex flex-col items-center lg:items-start"
+              >
                 <a
                   href="#"
                   className={`font-display text-4xl uppercase tracking-wider text-muted-foreground hover:text-primary transition-colors duration-150 ${

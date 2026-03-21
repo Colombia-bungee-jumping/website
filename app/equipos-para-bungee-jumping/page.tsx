@@ -1,28 +1,77 @@
-import { Navbar } from "@/components/navbar"
-import { Footer } from "@/components/footer"
-import { WhatsAppButton } from "@/components/whatsapp-button"
+import { Navbar } from "@/components/navbar";
+import { Footer } from "@/components/footer";
+import { WhatsAppButton } from "@/components/whatsapp-button";
+import { Hero } from "@/components/hero";
+import { AuthoritySection } from "@/components/authority-section";
+import { ValuePropositionSection } from "@/components/value-proposition-section";
+import { RopesSection } from "@/components/ropes-section";
+import { HarnessesSection } from "@/components/harnesses-section";
+import { HardwareSection } from "@/components/hardware-section";
+import { ComplementarySection } from "@/components/complementary-section";
+import { DiagonalDivider } from "@/components/diagonal-divider";
 
 export const metadata = {
   title: "Equipos para Bungee Jumping | Colombia Bungee",
-  description: "Venta de equipos profesionales de Bungee Jumping: sogas, arneses y accesorios de alta calidad",
-}
+  description:
+    "Venta de equipos profesionales de Bungee Jumping: sogas, arneses y accesorios de alta calidad",
+};
 
 export default function EquiposBungeeJumping() {
   return (
     <main>
-      <Navbar />
-      <section id="inicio" className="min-h-screen pt-24 flex items-center justify-center bg-gradient-to-b from-primary/10 to-background">
-        <div className="text-center px-4">
-          <h1 className="font-display text-4xl md:text-6xl uppercase tracking-widest mb-4">
-            Equipos para Bungee Jumping
-          </h1>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Venta de equipos profesionales: sogas, arneses y accesorios de alta calidad
-          </p>
-        </div>
-      </section>
+      <Navbar bannerText="Comprar productos ahora" />
+      <Hero
+        subtitle="Equipos profesionales para Bungee Jumping"
+        title="Opera Bungee Jumping real con equipo certificado y probado en campo"
+        stats={[
+          {
+            prefix: "+",
+            end: 100,
+            suffix: "K",
+            label: "Saltos comerciales",
+            duration: 2000,
+          },
+          {
+            prefix: "+",
+            end: 18,
+            label: "Anios de experiencia",
+            duration: 2500,
+          },
+          { end: 0, label: "Accidentes", duration: 1800 },
+          { end: 0, label: "Intermediarios", duration: 2200 },
+        ]}
+        titleSize="lg"
+        scrollLink="#productos"
+        scrollLabel="Ver productos"
+      />
+      <AuthoritySection />
+      <DiagonalDivider
+        fromColor="hsl(var(--background))"
+        toColor="hsl(var(--secondary))"
+        direction="right"
+      />
+      <ValuePropositionSection />
+      <DiagonalDivider
+        fromColor="hsl(var(--secondary))"
+        toColor="hsl(var(--background))"
+        direction="left"
+      />
+      <RopesSection />
+      <DiagonalDivider
+        fromColor="hsl(var(--background))"
+        toColor="hsl(var(--secondary))"
+        direction="right"
+      />
+      <HarnessesSection />
+      <DiagonalDivider
+        fromColor="hsl(var(--secondary))"
+        toColor="hsl(var(--background))"
+        direction="left"
+      />
+      <HardwareSection />
+      <ComplementarySection />
       <Footer />
       <WhatsAppButton />
     </main>
-  )
+  );
 }

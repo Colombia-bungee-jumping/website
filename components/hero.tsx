@@ -110,7 +110,7 @@ export function Hero({
         {displayStats.length > 0 && (
           <AnimateOnScroll variant="fade-up" delay={900} duration={800}>
             <div
-              className={`mt-20 lg:mt-10 xl:mt-20 grid gap-6 max-w-3xl mx-auto ${
+              className={`mt-10 lg:mt-10 xl:mt-20 grid gap-6 max-w-3xl mx-auto ${
                 displayStats.length === 4
                   ? "grid-cols-2 lg:grid-cols-4"
                   : "grid-cols-3"

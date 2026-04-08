@@ -194,8 +194,8 @@ export function BookingForm() {
   }
 
   return (
-    <section className="h-screen bg-background flex overflow-x-hidden overflow-y-auto">
-      <div className="w-full lg:max-w-2xl flex flex-col h-screen">
+    <section className="h-screen bg-background flex overflow-x-hidden overflow-y-auto lg:overflow-y-hidden">
+      <div className="w-full lg:max-w-2xl flex flex-col h-screen lg:overflow-y-auto">
         <div className="pt-20 p-8 h-full">
           <div className="flex flex-col h-full ">
             <div className="flex-shrink-0 mb-8">

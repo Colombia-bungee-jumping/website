@@ -197,7 +197,7 @@ export function BookingForm() {
     <section className="h-screen bg-background flex overflow-hidden">
       <div className="w-full lg:max-w-2xl flex flex-col h-screen">
         <div className="pt-20 p-8 h-full">
-          <div className="flex flex-col h-full">
+          <div className="flex flex-col h-full overflow-y-auto overflow-x-hidden">
             <div className="flex-shrink-0 mb-8">
               <p className="text-primary uppercase tracking-[0.3em] text-sm font-semibold mb-4">
                 Paso {step} de 3

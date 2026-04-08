@@ -58,7 +58,7 @@ export function Experiences() {
                   </ul>
                   {service.showButton && (
                     <Button asChild className="w-full bg-primary text-primary-foreground hover:bg-primary/90 uppercase tracking-wider font-semibold">
-                      <a href="/reservar">Reservar</a>
+                      <a href={`/reservar?experience=${service.id}`}>Reservar</a>
                     </Button>
                   )}
                 </CardContent>

@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -61,6 +62,15 @@ export function BookingForm() {
   } | null>(null);
 
   const [loadingCheckout, setLoadingCheckout] = useState(false);
+
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const experienceId = searchParams.get("experience");
+    if (experienceId) {
+      updateQuantity(experienceId, 1);
+    }
+  }, [searchParams]);
 
   const validateStep2 = () => {
     const newErrors: typeof errors = {};

@@ -1,3 +1,5 @@
+"use client"
+
 import { Navbar } from "@/components/navbar"
 import { Hero } from "@/components/hero"
 import { Experiences } from "@/components/experiences"
@@ -7,12 +9,19 @@ import { Location } from "@/components/location"
 import { Footer } from "@/components/footer"
 import { DiagonalDivider } from "@/components/diagonal-divider"
 import { WhatsAppButton } from "@/components/whatsapp-button"
+import { useLanguage } from "@/components/language-provider"
 
 export default function Home() {
+  const { translations } = useLanguage()
+
   return (
     <main>
       <Navbar />
-      <Hero title="70 metros de pura adrenalina" />
+      <Hero
+        subtitle={translations.home.hero.subtitle}
+        title={translations.home.hero.title}
+        scrollLabel={translations.home.hero.scrollLabel}
+      />
       <Experiences />
       <DiagonalDivider
         fromColor="hsl(var(--background))"

@@ -1,8 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Menu, X, Globe, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import { company } from "@/config/company";
+import { useLanguage } from "@/components/language-provider";
+import { type Language } from "@/lib/i18n";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -35,7 +37,7 @@ const navLinks = [
   { label: "Nosotros", href: "/nosotros" },
 ];
 
-const languages = [
+const languages: { code: Language; label: string; flagPath: string }[] = [
   { code: "es", label: "ES", flagPath: "/icons/es.svg" },
   { code: "en", label: "EN", flagPath: "/icons/gb.svg" },
   { code: "fr", label: "FR", flagPath: "/icons/fr.svg" },
@@ -50,16 +52,17 @@ interface NavbarProps {
 
 export function Navbar({
   showBanner = true,
-  bannerText = "Reserva tu salto ahora",
+  bannerText,
   bannerHref = "/reservar",
   bannerNewTab = false,
 }: NavbarProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [animateMenu, setAnimateMenu] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [currentLang, setCurrentLang] = useState("es");
   const [serviciosOpen, setServiciosOpen] = useState(false);
   const [isLargeScreen, setIsLargeScreen] = useState(false);
+  const { language, setLanguage, translations } = useLanguage();
+  const resolvedBannerText = bannerText ?? translations.home.banner.cta;
 
   useEffect(() => {
     const handleResize = () => {
@@ -111,8 +114,8 @@ export function Navbar({
             rel={bannerNewTab ? "noopener noreferrer" : undefined}
             className="flex items-center justify-center gap-2 hover:text-primary-foreground/80 transition-colors group"
           >
-            <span className="font-display text-lg sm:text-xl uppercase tracking-widest">
-              {bannerText}
+              <span className="font-display text-lg sm:text-xl uppercase tracking-widest">
+              {resolvedBannerText}
             </span>
           </a>
         </div>
@@ -159,7 +162,7 @@ export function Navbar({
                     aria-label="Seleccionar idioma"
                   >
                     {languages.map((lang) =>
-                      lang.code === currentLang ? (
+                      lang.code === language ? (
                         <img
                           key={lang.code}
                           src={lang.flagPath}
@@ -169,7 +172,7 @@ export function Navbar({
                       ) : null,
                     )}
                     <span className="font-display text-sm uppercase tracking-wider">
-                      {currentLang}
+                      {language}
                     </span>
                   </button>
                 </DropdownMenuTrigger>
@@ -177,9 +180,9 @@ export function Navbar({
                   {languages.map((lang) => (
                     <DropdownMenuItem
                       key={lang.code}
-                      onClick={() => setCurrentLang(lang.code)}
+                      onClick={() => setLanguage(lang.code)}
                       className={`flex items-center gap-3 ${
-                        currentLang === lang.code ? "text-primary" : ""
+                        language === lang.code ? "text-primary" : ""
                       }`}
                     >
                       <img
@@ -211,7 +214,7 @@ export function Navbar({
             className="flex items-center justify-center gap-2 text-primary-foreground hover:text-primary-foreground/80 transition-colors group"
           >
             <span className="font-display text-lg sm:text-xl uppercase tracking-widest">
-              {bannerText}
+              {resolvedBannerText}
             </span>
           </a>
         </div>

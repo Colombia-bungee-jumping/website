@@ -81,9 +81,15 @@ export function DateTimePicker({
         newDate.setMinutes(parseInt(value));
       } else if (type === "ampm") {
         const currentHours = newDate.getHours();
-        newDate.setHours(
-          value === "PM" ? currentHours + 12 : currentHours - 12,
-        );
+        const isCurrentlyPm = currentHours >= 12;
+
+        if (value === "PM" && !isCurrentlyPm) {
+          newDate.setHours(currentHours + 12);
+        }
+
+        if (value === "AM" && isCurrentlyPm) {
+          newDate.setHours(currentHours - 12);
+        }
       }
       setDate(newDate);
       onChange?.(newDate);

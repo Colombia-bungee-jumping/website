@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
 import { PhoneInput } from "@/components/phone-input";
-import { CheckCircle2, Minus, Plus, ArrowRight, ArrowLeft } from "lucide-react";
+import { Minus, Plus, ArrowRight, ArrowLeft } from "lucide-react";
 import { services } from "@/config/services";
 import { formatCurrency } from "@/lib/utils";
 import { format } from "date-fns";
@@ -45,7 +45,6 @@ export function BookingForm() {
     email: "",
     fecha: "",
   });
-  const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState<{
     nombre?: string;
     telefono?: string;
@@ -53,6 +52,7 @@ export function BookingForm() {
     fecha?: string;
   }>({});
   const [date, setDate] = useState<Date | undefined>(undefined);
+  const [checkoutError, setCheckoutError] = useState<string | null>(null);
 
   const [checkoutData, setCheckoutData] = useState<{
     reference: string;
@@ -136,62 +136,40 @@ export function BookingForm() {
 
   const createCheckout = async () => {
     setLoadingCheckout(true);
+    setCheckoutData(null);
+    setCheckoutError(null);
 
-    const res = await fetch("/api/checkout/create", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        amount: total,
-        cart,
-        ...personalData,
-      }),
-    });
+    try {
+      const res = await fetch("/api/checkout/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          cart,
+          ...personalData,
+        }),
+      });
 
-    const data = await res.json();
+      const data = await res.json();
 
-    setCheckoutData(data);
-    setLoadingCheckout(false);
+      if (!res.ok) {
+        throw new Error(data.error || "No se pudo iniciar el pago");
+      }
+
+      setCheckoutData(data);
+      return true;
+    } catch (error) {
+      setCheckoutError(
+        error instanceof Error
+          ? error.message
+          : "No se pudo iniciar el pago",
+      );
+      return false;
+    } finally {
+      setLoadingCheckout(false);
+    }
   };
-
-  if (submitted) {
-    return (
-      <section className="min-h-screen flex items-center justify-center bg-background px-4">
-        <Card className="bg-card border-border max-w-lg w-full">
-          <CardContent className="p-12 text-center">
-            <div className="h-20 w-20 rounded-full bg-primary/20 flex items-center justify-center mx-auto mb-6">
-              <CheckCircle2 className="h-10 w-10 text-primary" />
-            </div>
-            <h3 className="font-display text-4xl text-foreground tracking-wide mb-4">
-              RESERVA CONFIRMADA
-            </h3>
-            <p className="text-muted-foreground leading-relaxed mb-8">
-              Hemos recibido tu solicitud. Nuestro equipo se pondra en contacto
-              contigo en las proximas 24 horas.
-            </p>
-            <Button
-              onClick={() => {
-                setSubmitted(false);
-                setStep(1);
-                setCart([]);
-                setPersonalData({
-                  nombre: "",
-                  telefono: "",
-                  email: "",
-                  fecha: "",
-                });
-                setErrors({});
-              }}
-              className="bg-primary text-primary-foreground hover:bg-primary/90 uppercase tracking-wider font-semibold"
-            >
-              Hacer otra reserva
-            </Button>
-          </CardContent>
-        </Card>
-      </section>
-    );
-  }
 
   return (
     <section className="h-screen bg-background flex overflow-x-hidden overflow-y-auto lg:overflow-y-hidden">
@@ -396,12 +374,20 @@ export function BookingForm() {
                       {errors.fecha && (
                         <p className="text-sm text-red-500">{errors.fecha}</p>
                       )}
+                      {checkoutError && (
+                        <p className="text-sm text-red-500">
+                          {checkoutError}
+                        </p>
+                      )}
                     </div>
                   </div>
 
                   <div className="flex gap-4 mt-8">
                     <Button
-                      onClick={() => setStep(1)}
+                      onClick={() => {
+                        setCheckoutError(null);
+                        setStep(1);
+                      }}
                       variant="outline"
                       className="flex-1 border-border text-foreground hover:bg-muted hover:text-white uppercase tracking-wider font-semibold py-6"
                     >
@@ -410,8 +396,10 @@ export function BookingForm() {
                     <Button
                       onClick={async () => {
                         if (validateStep2()) {
-                          await createCheckout();
-                          setStep(3);
+                          const created = await createCheckout();
+                          if (created) {
+                            setStep(3);
+                          }
                         }
                       }}
                       disabled={!canProceedStep2}

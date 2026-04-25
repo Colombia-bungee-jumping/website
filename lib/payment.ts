@@ -1,5 +1,6 @@
 import { supabase } from "./supabase";
 import { sendBookingEmail } from "./email";
+import type { WompiTransaction } from "./wompi";
 
 export async function createBooking(data: any) {
   const { error } = await supabase.from("bookings").insert(data);
@@ -38,14 +39,25 @@ export async function getBooking(reference: string) {
   return data;
 }
 
-export async function completeBooking(reference: string, transaction: any) {
+export async function completeBooking(
+  reference: string,
+  transaction: WompiTransaction,
+) {
   const booking = await getBooking(reference);
 
   if (!booking) return;
 
+  if (
+    booking.amount !== transaction.amount_in_cents ||
+    booking.currency !== transaction.currency ||
+    reference !== transaction.reference
+  ) {
+    throw new Error("La transacción no coincide con la reserva registrada");
+  }
+
   await updateBookingStatus(reference, transaction.status, transaction.id);
 
-  if (transaction.status === "APPROVED") {
+  if (transaction.status === "APPROVED" && booking.status !== "APPROVED") {
     await sendBookingEmail(booking);
   }
 }

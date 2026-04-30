@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { CheckCircle2, CircleAlert, LoaderCircle, TimerReset } from "lucide-react";
@@ -50,7 +50,24 @@ const statusConfig: Record<
   },
 };
 
-export default function PaymentResultPage() {
+function PaymentResultFallback() {
+  return (
+    <section className="min-h-screen bg-background px-4 py-24">
+      <div className="mx-auto max-w-2xl">
+        <Card className="bg-card border-border">
+          <CardContent className="p-10 text-center">
+            <div className="flex flex-col items-center gap-4">
+              <LoaderCircle className="h-10 w-10 animate-spin text-primary" />
+              <p className="text-muted-foreground">Consultando el estado del pago...</p>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    </section>
+  );
+}
+
+function PaymentResultContent() {
   const searchParams = useSearchParams();
   const transactionId = searchParams.get("id");
   const [status, setStatus] = useState<PaymentStatus>("PENDING");
@@ -153,5 +170,13 @@ export default function PaymentResultPage() {
         </Card>
       </div>
     </section>
+  );
+}
+
+export default function PaymentResultPage() {
+  return (
+    <Suspense fallback={<PaymentResultFallback />}>
+      <PaymentResultContent />
+    </Suspense>
   );
 }

@@ -25,7 +25,7 @@ export async function updateBookingStatus(
     .eq("reference", reference);
 
   if (error) {
-    throw new Error("Error updating booking");
+    throw new Error(`Error updating booking: ${error.message}`);
   }
 }
 
@@ -58,6 +58,10 @@ export async function completeBooking(
   await updateBookingStatus(reference, transaction.status, transaction.id);
 
   if (transaction.status === "APPROVED" && booking.status !== "APPROVED") {
-    await sendBookingEmail(booking);
+    try {
+      await sendBookingEmail(booking);
+    } catch (error) {
+      console.error("BOOKING EMAIL ERROR:", error);
+    }
   }
 }

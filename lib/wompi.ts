@@ -29,7 +29,8 @@ export function verifyEventSignature(
   eventBody: Record<string, unknown>,
   checksum: string | null,
 ) {
-  const eventsSecret = process.env.WOMPI_EVENTS_SECRET;
+  const eventsSecret =
+    process.env.WOMPI_EVENTS_SECRET ?? process.env.WOMPI_EVENTS_KEY;
   const signature = eventBody.signature as
     | { properties?: string[]; checksum?: string }
     | undefined;

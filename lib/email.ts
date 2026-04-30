@@ -1,10 +1,11 @@
 import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
+const defaultFromEmail = process.env.RESEND_FROM_EMAIL ?? "onboarding@resend.dev";
 
 export async function sendBookingEmail(booking: any) {
-  await resend.emails.send({
-    from: "Bungee <noreply@bungee.com>",
+  const { error } = await resend.emails.send({
+    from: `Colombia Bungee Jumping <${defaultFromEmail}>`,
     to: booking.email,
     subject: "Reserva confirmada",
     html: `
@@ -14,4 +15,8 @@ export async function sendBookingEmail(booking: any) {
       <p>Total: ${booking.amount} COP</p>
     `,
   });
+
+  if (error) {
+    throw new Error(`No se pudo enviar el correo de confirmación: ${error.message}`);
+  }
 }

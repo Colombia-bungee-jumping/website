@@ -38,20 +38,54 @@ export function DateTimePicker({
   };
 
   const hours = Array.from({ length: 12 }, (_, i) => i + 1);
-  const isToday = date && format(date, "yyyy-MM-dd") === format(today, "yyyy-MM-dd");
+  const isToday =
+    date && format(date, "yyyy-MM-dd") === format(today, "yyyy-MM-dd");
   const currentHour = today.getHours();
+  const currentMinute = today.getMinutes();
+
+  const getHour24 = (hour: number, ampm: "AM" | "PM") => {
+    if (ampm === "AM") {
+      return hour === 12 ? 0 : hour;
+    }
+
+    return hour === 12 ? 12 : hour + 12;
+  };
 
   const isHourDisabled = (hour: number) => {
     if (!isToday) return false;
-    const hour24 = hour % 12 + (currentHour >= 12 ? 12 : 0);
-    return hour24 <= currentHour;
+
+    const selectedAmPm = date && date.getHours() >= 12 ? "PM" : "AM";
+    const hour24 = getHour24(hour, selectedAmPm);
+
+    return hour24 < currentHour;
   };
 
   const isMinuteDisabled = (minute: number) => {
     if (!isToday) return false;
-    const hour24 = date ? (date.getHours() % 12) + (date.getHours() >= 12 ? 12 : 0) : 0;
-    const currentHour24 = (currentHour % 12) + (currentHour >= 12 ? 12 : 0);
-    return hour24 === currentHour24 && minute <= today.getMinutes();
+    if (!date) return false;
+
+    return date.getHours() === currentHour && minute < currentMinute;
+  };
+
+  const isAmPmDisabled = (ampm: "AM" | "PM") => {
+    if (!isToday) return false;
+    if (!date) return false;
+
+    const currentAmPm = currentHour >= 12 ? "PM" : "AM";
+    return ampm === "AM" && currentAmPm === "PM";
+  };
+
+  const adjustDateIfInPast = (candidate: Date) => {
+    const isCandidateToday =
+      format(candidate, "yyyy-MM-dd") === format(today, "yyyy-MM-dd");
+
+    if (!isCandidateToday) return candidate;
+    if (candidate.getTime() >= today.getTime()) return candidate;
+
+    const roundedNow = new Date(today);
+    roundedNow.setSeconds(0, 0);
+
+    return roundedNow;
   };
 
   const handleDateSelect = (selectedDate: Date | undefined) => {
@@ -62,8 +96,11 @@ export function DateTimePicker({
       } else {
         newDate.setHours(date.getHours(), date.getMinutes());
       }
-      setDate(newDate);
-      onChange?.(newDate);
+
+      const adjustedDate = adjustDateIfInPast(newDate);
+
+      setDate(adjustedDate);
+      onChange?.(adjustedDate);
     }
   };
 
@@ -91,8 +128,11 @@ export function DateTimePicker({
           newDate.setHours(currentHours - 12);
         }
       }
-      setDate(newDate);
-      onChange?.(newDate);
+
+      const adjustedDate = adjustDateIfInPast(newDate);
+
+      setDate(adjustedDate);
+      onChange?.(adjustedDate);
     }
   };
 
@@ -183,6 +223,7 @@ export function DateTimePicker({
                         : "ghost"
                     }
                     className="sm:w-full shrink-0 aspect-square"
+                    disabled={isAmPmDisabled(ampm as "AM" | "PM")}
                     onClick={() => handleTimeChange("ampm", ampm)}
                   >
                     {ampm}

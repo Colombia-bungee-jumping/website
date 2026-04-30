@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
 import { PhoneInput } from "@/components/phone-input";
-import { Minus, Plus, ArrowRight, ArrowLeft } from "lucide-react";
+import { Minus, Plus, ArrowRight, ArrowLeft, Loader2 } from "lucide-react";
 import { services } from "@/config/services";
 import { formatCurrency } from "@/lib/utils";
 import { format } from "date-fns";
@@ -63,6 +63,11 @@ export function BookingForm() {
 
   const [loadingCheckout, setLoadingCheckout] = useState(false);
 
+  const isDateTimeInPast = (selectedDate?: Date) => {
+    if (!selectedDate) return true;
+    return selectedDate.getTime() < new Date().getTime();
+  };
+
   const searchParams = useSearchParams();
 
   useEffect(() => {
@@ -87,8 +92,10 @@ export function BookingForm() {
       newErrors.email = "Ingresa un correo electrónico válido";
     }
 
-    if (!personalData.fecha) {
+    if (!date || !personalData.fecha) {
       newErrors.fecha = "Selecciona una fecha";
+    } else if (isDateTimeInPast(date)) {
+      newErrors.fecha = "La fecha y hora deben ser posteriores a la actual";
     }
 
     setErrors(newErrors);
@@ -132,7 +139,9 @@ export function BookingForm() {
     isValidPhoneNumber(personalData.telefono) &&
     personalData.email &&
     isValidEmail(personalData.email) &&
-    personalData.fecha;
+    personalData.fecha &&
+    date &&
+    !isDateTimeInPast(date);
 
   const createCheckout = async () => {
     setLoadingCheckout(true);
@@ -363,6 +372,10 @@ export function BookingForm() {
                         value={date}
                         onChange={(selectedDate) => {
                           setDate(selectedDate);
+                          setErrors((currentErrors) => ({
+                            ...currentErrors,
+                            fecha: undefined,
+                          }));
                           setPersonalData({
                             ...personalData,
                             fecha: selectedDate
@@ -395,6 +408,8 @@ export function BookingForm() {
                     </Button>
                     <Button
                       onClick={async () => {
+                        if (loadingCheckout) return;
+
                         if (validateStep2()) {
                           const created = await createCheckout();
                           if (created) {
@@ -402,10 +417,19 @@ export function BookingForm() {
                           }
                         }
                       }}
-                      disabled={!canProceedStep2}
+                      disabled={!canProceedStep2 || loadingCheckout}
                       className="flex-1 bg-primary text-primary-foreground hover:bg-primary/90 uppercase tracking-wider font-semibold py-6"
                     >
-                      Continuar <ArrowRight className="ml-2 h-5 w-5" />
+                      {loadingCheckout ? (
+                        <>
+                          <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                          Cargando...
+                        </>
+                      ) : (
+                        <>
+                          Continuar <ArrowRight className="ml-2 h-5 w-5" />
+                        </>
+                      )}
                     </Button>
                   </div>
                 </div>

@@ -18,6 +18,11 @@ export default function WompiPaymentButton({
   signature,
 }: Props) {
   const ref = useRef<HTMLDivElement>(null);
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL;
+  const shouldUseRedirectUrl =
+    appUrl &&
+    !appUrl.includes("localhost") &&
+    !appUrl.includes("127.0.0.1");
 
   useEffect(() => {
     if (!ref.current) return;
@@ -35,13 +40,12 @@ export default function WompiPaymentButton({
     script.setAttribute("data-reference", reference);
     script.setAttribute("data-signature:integrity", signature);
 
-    script.setAttribute(
-      "data-redirect-url",
-      `${process.env.NEXT_PUBLIC_APP_URL}/payment/result`,
-    );
+    if (shouldUseRedirectUrl) {
+      script.setAttribute("data-redirect-url", `${appUrl}/payment/result`);
+    }
 
     ref.current.appendChild(script);
-  }, []);
+  }, [amountInCents, appUrl, currency, publicKey, reference, shouldUseRedirectUrl, signature]);
 
   return <div ref={ref} className="flex-1" />;
 }
